@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lazy-attr</title>
+
+    <script src="lazy-attr.js"></script>
+    <link href="./css/main.css" rel="stylesheet"/>
+    <link href="./css/animation.css" rel="stylesheet"/>
+</head>
+<body>
+    <header>
+        <h1 lazy-animation-time="1" lazy-animation-style="opacity: 1">❤️&nbsp;Lazy-attr</h1>
+    </header>
+    
+    <section>
+        <!-- Image lazy without reset -->
+        <div class="row b1">
+            <div class="col">
+                <p>
+                    Exemple d'une image qui ce load en lazy et qui lors du scroll lance l'animation même après avoir
+                    effectué déjà une fois l'animation.
+                    <code>lazy-src="image source" lazy-animation="class animation" lazy-animation-time="temps en seconde" lazy-reset</code>
+                </p>
+            </div>
+            <div class="col">
+                <img class="scale15" alt="Random image" lazy-src="https://picsum.photos/300/300?random=1" lazy-animation="zoom" lazy-animation-time="1" lazy-reset>
+            </div>
+        </div>
+
+        <!-- Image lazy one time animation -->
+        <div class="row">
+            <div class="col">
+                <img alt="Random image" lazy-src="https://picsum.photos/300/300?random=2" lazy-animation="rotate" lazy-animation-time="1">
+            </div>
+            <div class="col">
+                <p>
+                    Exemple d'une image qui ce load en lazy et qui lors du scroll lance l'animation mais seulement une fois.
+                    Ensuite elle n'est plus prise en compte.
+                    <code>lazy-src="image source" lazy-animation="class animation" lazy-animation-time="temps en seconde"</code>
+                </p>
+            </div>
+        </div>
+
+        <!-- Image lazy one time animation by style -->
+        <div class="row b1">
+            <div class="col">
+                <p>
+                    Exemple d'une image qui ce load en lazy et qui lors du scroll à plusieurs reprise.
+                    Ensuite elle n'est plus prise en compte. Cette fois-si l'animation ce lance pas avec une class mais un style.
+                    <code>lazy-src="image source" lazy-animation-style="style css" lazy-animation-time="temps en seconde" lazy-reset</code>
+                </p>
+            </div>
+            <div class="col">
+                <img class="noopacity" alt="Random image" lazy-reset lazy-src="https://picsum.photos/300/300?random=3" lazy-animation-style="opacity: 1" lazy-animation-time="1" lazy-reset>
+            </div>
+        </div>
+
+        <!-- Embed lazy -->
+        <div class="row">
+            <div class="col">
+                <iframe width="560" height="315" lazy-embed="https://www.youtube.com/embed/Y8Wp3dafaMQ?autoplay=1" lazy-animation="shake-animation"></iframe>
+            </div>
+            <div class="col">
+                <p>
+                    Exemple d'une video embed qui ce lance lors du click et qui execute une animation lors du scroll.
+                    <code>lazy-embed="url de la video embed" lazy-animation="class animation"</code>
+                </p>
+            </div>
+        </div>
+
+        <!-- Embed lazy with poster -->
+        <div class="row b1">
+            <div class="col">
+                <p>
+                    Exemple d'une image qui ce load en lazy et qui lors du scroll à plusieurs reprise.
+                    Ensuite elle n'est plus prise en compte. Cette fois-si l'animation ce lance pas avec une class mais un style.
+                    <code>lazy-src="image source" lazy-animation-style="style css" lazy-animation-time="temps en seconde" lazy-reset</code>
+                </p>
+            </div>
+            <div class="col">
+                <iframe width="560" height="315" lazy-embed="https://www.youtube.com/embed/Y8Wp3dafaMQ?autoplay=1" lazy-poster="https://img.youtube.com/vi/Y8Wp3dafaMQ/hqdefault.jpg"></iframe>
+            </div>
+        </div>
+
+        <!-- Lazy animation delay -->
+        <div class="row">
+            <div class="col">
+                <p>
+                    Permet d'effectuer une animation avec un delay d'écart entre chaque image ici dans l'exemple ci-dessous.
+                    <code>lazy-animation-delay="temps en seconde"</code>
+                </p>
+            </div>
+        </div>
+        <div class="row image-list">
+            <img class="scale05" alt="Random image" lazy-src="https://picsum.photos/300/300?random=4" lazy-animation="zoom" lazy-reset/>
+            <img lazy-animation-delay="0.3" class="scale05" alt="Random image" lazy-src="https://picsum.photos/300/300?random=5" lazy-animation="zoom" lazy-reset/>
+            <img lazy-animation-delay="0.6" class="scale05" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" lazy-animation="zoom" lazy-reset/>
+            <img lazy-animation-delay="0.9" class="scale05" alt="Random image" lazy-src="https://picsum.photos/300/300?random=7" lazy-animation="zoom" lazy-reset/>
+            <img lazy-animation-delay="1.2" class="scale05" alt="Random image" lazy-src="https://picsum.photos/300/300?random=8" lazy-animation="zoom" lazy-reset/>
+        </div>
+
+        <footer class="b1">
+            <p>By yoannchb &#169;</p>
+        </footer>
+    </section>
+</body>
+</html>
