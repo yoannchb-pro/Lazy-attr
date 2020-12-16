@@ -1,0 +1,21 @@
+{
+  "name": "lazy-attr",
+  "version": "1.0.1",
+  "description": "Make a lazy page with lazy video, embed, image and animation on scrolling.",
+  "main": "lazy-attr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lazy",
+    "load",
+    "lazy-attr",
+    "embed",
+    "image",
+    "video",
+    "animation",
+    "yoannchb"
+  ],
+  "author": "yoannchb",
+  "license": "ISC"
+}
