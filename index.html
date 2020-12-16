@@ -2,8 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Lazy-attr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./assets/favicon.ico" />
+
+    <meta name="title" content="Lazy-attr || Lazy page and Animations">
+    <meta name="description" content="Create beautiful animation on lazy (or not) element. Make a lazy page (video, iframe and image) just with attributes.">
+    <meta name="keywords" content="html, js, css, animation, lazy, image, lazy-attr, embed, video, free, easy, attributes, iframe">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="author" content="yoannchb">
+
+    <title>Lazy-attr || Lazy page and Animation</title>
 
     <!-- LIB css + js-->
     <script src="lazy-attr.js"></script>
@@ -20,22 +30,38 @@
 <body>
     <header>
         <a href="https://github.com/yoannchb-pro/Lazy-attr" style="text-decoration: none;">
-            <h1 lazy-animation="from-left-animation">❤️&nbsp;Lazy-attr.js (click to download)</h1>
+            <h1 lazy-animation="from-left-animation">❤️&nbsp;Lazy-attr.js</h1>
         </a>
     </header>
     
     <section>
+        <!-- CODE -->
+        <div class="row">
+            <div class="col-code html-block">
+                <p style="color: whitesmoke">
+                      Create a beautiful webpage with <b>lazy</b> image, embed, video ... Moreover, make beautiful <b>animations</b> on lazy and not lazy element.
+                      All of that in one lib and only with <b>attributes</b> on dom elements !
+                </p>
+                <p>
+                    <span id="code-script" class="html-line"></span>
+                    <span id="code-link" class="html-line"></span>
+                </p>
+                <p id="attr-script" style="color: #999999"></p>
+            </div>
+        </div>
+
         <!-- Image lazy without reset -->
-        <div class="row b1">
+        <div class="row b1" id="pointer">
             <div class="col">
                 <p>
                     Example of an image which this lazy load and which when scrolling launches the animation even after having
-                    already performed once the animation.
-                    <code>lazy-src="image source" lazy-animation="class animation" lazy-reset</code>
+                    already performed once the animation. Just add these attributes in your img. This image will make an animation on his parent
+                    by selecting him with the attribute "lazy-animation-pointer".
+                    <code>lazy-src="https://picsum.photos/300/300?random=1" lazy-animation="zoomin-animation" lazy-animation-pointer="#pointer" lazy-reset</code>
                 </p>
             </div>
             <div class="col">
-                <img alt="Random image" lazy-src="https://picsum.photos/300/300?random=1" lazy-animation="zoomin-animation" lazy-reset>
+                <img alt="Random image" lazy-src="https://picsum.photos/300/300?random=1" lazy-animation="zoomin-animation" lazy-animation-pointer="#pointer" lazy-reset>
             </div>
         </div>
         <hr>
@@ -48,7 +74,7 @@
                 <p>
                     Example of an image which this lazy load and which when scrolling launches the animation but only once.
                     Then it is no longer taken into account.
-                    <code>lazy-src="image source" lazy-animation="class animation" lazy-animation-time="time in seconde"</code>
+                    <code>lazy-src="https://picsum.photos/300/300?random=2" lazy-animation="rotate-animation" lazy-animation-time="3"</code>
                 </p>
             </div>
         </div>
@@ -59,7 +85,7 @@
                 <p>
                     Example of an image which this lazy load and which during scrolling several times.
                     Then it is no longer taken into account.
-                    <code>lazy-src="image source" lazy-animation="class name" lazy-reset</code>
+                    <code>lazy-src="https://picsum.photos/300/300?random=3" lazy-animation="opacity-animation" lazy-reset</code>
                 </p>
             </div>
             <div class="col">
@@ -75,7 +101,7 @@
             <div class="col">
                 <p>
                     Example of an embed video which launches during the click and which executes an animation during the scroll.
-                    <code>lazy-embed="url of embed video" lazy-animation="class animation"</code>
+                    <code>lazy-embed="https://www.youtube.com/embed/Y8Wp3dafaMQ?autoplay=1" lazy-animation="shake-animation"</code>
                 </p>
             </div>
         </div>
@@ -86,7 +112,7 @@
                 <p>
                     Example of an image which this lazy load and which during scrolling several times.
                     Then it is no longer taken into account. This time, if the animation does not launch with a class but a style.
-                    <code>lazy-src="image source" lazy-animation="class name" lazy-reset</code>
+                    <code>lazy-reset lazy-animation="from-right-animation" lazy-embed="https://www.youtube.com/embed/Y8Wp3dafaMQ?autoplay=1" lazy-poster="https://img.youtube.com/vi/Y8Wp3dafaMQ/hqdefault.jpg"</code>
                 </p>
             </div>
             <div class="col">
@@ -94,8 +120,21 @@
             </div>
         </div>
         <hr>
-        <!-- Lazy animation delay -->
+        <!-- Lazy video -->
         <div class="row">
+            <div class="col">
+                <video controls lazy-video="https://picsum.photos/560/315?random=10" lazy-src="./assets/flower.webm" type="video/webm"></video>
+            </div>
+            <div class="col">
+                <p>
+                    Example of a video in lazy mode without preload and a poster. Does not support source html element, I think, for the moment.
+                    <code>lazy-video="https://picsum.photos/560/315?random=10" lazy-src="./assets/flower.webm"</code>
+                </p>
+            </div>
+        </div>
+        <hr>
+        <!-- Lazy animation delay -->
+        <div class="row b1">
             <div class="col">
                 <p>
                     Allows you to perform an animation with a gap delay between each frame here in the example below.
@@ -104,7 +143,7 @@
             </div>
         </div>
         <div class="row image-list">
-            <div class="col-delay" style="text-align: center">
+            <div class="col-delay">
                 <img class="scale05" alt="Random image" lazy-src="https://picsum.photos/300/300?random=4" lazy-animation="zoomin-animation" lazy-reset/>
                 <img lazy-animation-delay="0.3" alt="Random image" lazy-src="https://picsum.photos/300/300?random=5" lazy-animation="zoomin-animation" lazy-reset/>
                 <img lazy-animation-delay="0.6" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" lazy-animation="zoomin-animation" lazy-reset/>
@@ -134,12 +173,32 @@
         </footer>
     </section>
 </body>
+<!-- CODE -->
+<script>
+    function toCodeHtml(t){
+        return t.replace(/\</gi, "&lt;")
+         .replace(/\>/gi, "&gt;")
+         .replace(/\[str\]/gi, `<span class='html-str'>`)
+         .replace(/\[end-str\]/gi, "</span>")
+         .replace(/\[attr\]/gi, `<span class='html-attr'>`)
+         .replace(/\[end-attr\]/gi, "</span>")
+         .split('[separate]');
+    }
+
+    let v = window.lazy().version;
+    document.querySelector('#code-script').innerHTML = toCodeHtml(`<script [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@${v}/lazy-attr.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]>`);
+    document.querySelector('#code-link').innerHTML = toCodeHtml(`<link [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@${v}/lazy-attr-animation.css"[end-str]/>`);;
+
+    document.querySelector('#attr-script').innerHTML = "Attribute(s): " + window.lazy().parameters.join(", ");
+    document.querySelector('#attr-script').innerHTML += "<span style='display: block'>Variable(s): window.lazy</span>";
+</script>
+<!-- ANIMATION LIST -->
 <script>
     const image = document.querySelector("#toanimate");
     const select = document.querySelector("#animation-select");
     const code = document.querySelector("#code-animation");
 
-    const animationList = ["zoomin", "zoomout", "opacity", "from-left", "from-right", "from-bottom", "from-top", "shake", "rotate"];
+    const animationList = window.lazy().animations;
     animationList.forEach(e => {
         let c = e+"-animation";
         select.innerHTML += `<option value="${c}">${e}</option>`;

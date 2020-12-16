@@ -1,15 +1,47 @@
-//DOM loaded
-//V 1.0.1
-window.addEventListener('load', () => {
-    //Parameters to get lazy elements from DOM
-    let parameters = ["[lazy-reset]", 
+/**
+ * https://github.com/yoannchb-pro/Lazy-attr
+ * VERSION: 1.0.2
+ */
+
+window.lazy = () => {
+    return {
+        //search attributes parameters for observer
+        parameters: ["[lazy-reset]", 
                     "[lazy-animation]",  
                     "[lazy-animation-time]", 
                     "[lazy-animation-delay]",
                     "[lazy-src]",
                     "[lazy-video]",
-                    "[lazy-embed]"];
+                    "[lazy-embed]",
+                    "[lazy-animation-pointer]"],
+        //animation list
+        animations: ["zoomin",
+                     "zoomout", 
+                    "opacity", 
+                    "from-left",
+                    "from-right",
+                     "from-bottom", 
+                     "from-top", 
+                     "shake", 
+                     "rotate",
+                     "blur",
+                     "rotate3d",
+                     "rotate3d-up",
+                     "slide-width",
+                     "slide-height"],
+        //options
+        options: {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0
+        },
+        //version
+        version: "1.0.2"
+    }
+}
 
+//DOM loaded
+window.addEventListener('load', () => {
     let callback = (entries, observer) => {
         entries.forEach(entry => {
             const target = entry.target; //Element target
@@ -26,13 +58,15 @@ window.addEventListener('load', () => {
                 const startAnimation = () => {
                     //Animation class
                     let animationClass = target.getAttribute('lazy-animation');
-                    if(animationClass) target.classList.add(animationClass);
-                    
-                    //Animation style
-                    let animationStyle = target.getAttribute('lazy-animation-style');
-                    let s = target.style.cssText;
-                    if(s[s.length-1] != ";") s += ";";
-                    if(animationStyle) target.style = s + animationStyle;
+                    let pointer = target.getAttribute('lazy-animation-pointer');
+                    if(pointer && animationClass){
+                        let t = document.querySelectorAll(pointer);
+                        t.forEach(e => {
+                            e.classList.add(animationClass);
+                        });
+                    } else {
+                        if(animationClass) target.classList.add(animationClass);
+                    }
 
                     if(target.getAttribute('lazy-reset') === null){ //Used to reload animation on scroll
                         target.removeAttribute('lazy-animation');
@@ -71,7 +105,15 @@ window.addEventListener('load', () => {
             } else if(target.getAttribute('lazy-reset') != null){ //Reload animation
                 //Reset class animation
                 let animationClass = target.getAttribute('lazy-animation');
-                target.classList.remove(animationClass);
+                let pointer = target.getAttribute('lazy-animation-pointer');
+                if(pointer && animationClass){
+                    let t = document.querySelectorAll(pointer);
+                    t.forEach(e => {
+                        e.classList.remove(animationClass);
+                    });
+                } else {
+                    if(animationClass) target.classList.remove(animationClass);
+                }
 
                 //Reset animation delay
                 let d = target.getAttribute('lazy-animation-delay');
@@ -80,24 +122,20 @@ window.addEventListener('load', () => {
         });
     }
 
-    //Observer options
-    let options = {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0
-    }
-
     //Observer
-    let observer = new IntersectionObserver(callback, options);
+    let observer = new IntersectionObserver(callback, window.lazy().options);
 
     //Set observer on dom elements
     const getLazyObject = () => {
-        document.body.querySelectorAll(parameters.join(',')).forEach(e => {
+        document.body.querySelectorAll(window.lazy().parameters.join(',')).forEach(e => {
             observer.observe(e);
         });
     }
     document.addEventListener("DOMNodeInserted", getLazyObject);
     getLazyObject();
 
-    console.log('[INFO] Lazy configuration have been lauch');
+    //Display info
+    const displayInfo = m => console.log(`[INFO] Lazy - ${m}`);
+    displayInfo('configuration have been lauch');
+    displayInfo('version ' + window.lazy().version);
 });
