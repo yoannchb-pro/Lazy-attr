@@ -1,6 +1,6 @@
 /**
  * https://github.com/yoannchb-pro/Lazy-attr
- * VERSION: 1.0.3
+ * VERSION: 1.0.4
  */
 
 window.lazy = () => {
@@ -34,7 +34,7 @@ window.lazy = () => {
             threshold: 0
         },
         //version
-        version: "1.0.3"
+        version: "1.0.4"
     }
 }
 
@@ -70,7 +70,10 @@ window.addEventListener('load', () => {
                         target.removeAttribute('lazy-animation');
                     }
                 }
-                if(target.complete || !target.getAttribute("lazy-src")) startAnimation(); else target.addEventListener('load', startAnimation);
+                if(target.complete || !target.getAttribute("lazy-src")) startAnimation(); else {
+                    target.addEventListener('load', startAnimation);
+                    target.addEventListener('loadeddata', startAnimation);
+                }
 
                 //Lazy video
                 let srcPoster = target.getAttribute('lazy-video');

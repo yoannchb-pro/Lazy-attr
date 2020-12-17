@@ -21,11 +21,6 @@
 
 
     <link href="./css/main.css" rel="stylesheet"/>
-    <style>
-        .noopacity{
-            opacity: 0;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -121,9 +116,9 @@
         </div>
         <hr>
         <!-- Lazy video -->
-        <div class="row">
+        <div class="row" id="video-block">
             <div class="col">
-                <video controls lazy-video="https://picsum.photos/560/315?random=10" lazy-src="./assets/flower.webm" type="video/webm"></video>
+                <video controls lazy-video="https://picsum.photos/560/315?random=10" lazy-src="./assets/flower.webm" lazy-animation="rotate3d-animation" lazy-animation-pointer="#video-block" type="video/webm"></video>
             </div>
             <div class="col">
                 <p>
