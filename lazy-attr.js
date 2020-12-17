@@ -1,6 +1,6 @@
 /**
  * https://github.com/yoannchb-pro/Lazy-attr
- * VERSION: 1.0.2
+ * VERSION: 1.0.3
  */
 
 window.lazy = () => {
@@ -26,9 +26,7 @@ window.lazy = () => {
                      "rotate",
                      "blur",
                      "rotate3d",
-                     "rotate3d-up",
-                     "slide-width",
-                     "slide-height"],
+                     "rotate3d-up"],
         //options
         options: {
             root: null,
@@ -36,7 +34,7 @@ window.lazy = () => {
             threshold: 0
         },
         //version
-        version: "1.0.2"
+        version: "1.0.3"
     }
 }
 

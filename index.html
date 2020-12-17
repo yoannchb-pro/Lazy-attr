@@ -13,11 +13,11 @@
     <meta name="language" content="English">
     <meta name="author" content="yoannchb">
 
-    <title>Lazy-attr || Lazy page and Animation</title>
+    <title>Lazy-attr || Lazy page and Animations</title>
 
     <!-- LIB css + js-->
-    <script src="lazy-attr.js"></script>
-    <link href="./lazy-attr-animation.css" rel="stylesheet"/>
+    <script src="lazy-attr.min.js"></script>
+    <link href="./lazy-attr-animation.min.css" rel="stylesheet"/>
 
 
     <link href="./css/main.css" rel="stylesheet"/>
@@ -155,7 +155,15 @@
         <!-- Animation examples -->
         <div class="row">
             <div class="col">
-                <img style="border: thin solid #000;" id="toanimate" lazy-animation-delay="0.3" alt="Random image" lazy-src="https://picsum.photos/300/300?random=9" lazy-animation="zoomin-animation"/>
+                <div class="card">
+                    <img id="toanimate" lazy-src="https://picsum.photos/300/300?random=9" lazy-animation="zoomin-animation" lazy-animation-pointer=".card">
+                    <div class="card-content">
+                        <p>Card</p>
+                    </div>
+                </div>
+                <!--
+                    <img style="border: thin solid #000;" id="toanimate" lazy-animation-delay="0.3" alt="Random image" lazy-src="https://picsum.photos/300/300?random=9" lazy-animation="zoomin-animation"/>
+                -->
             </div>
             <div class="col">
                 <p>
@@ -186,8 +194,8 @@
     }
 
     let v = window.lazy().version;
-    document.querySelector('#code-script').innerHTML = toCodeHtml(`<script [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@${v}/lazy-attr.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]>`);
-    document.querySelector('#code-link').innerHTML = toCodeHtml(`<link [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@${v}/lazy-attr-animation.css"[end-str]/>`);;
+    document.querySelector('#code-script').innerHTML = toCodeHtml(`<script [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@${v}/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]>`);
+    document.querySelector('#code-link').innerHTML = toCodeHtml(`<link [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@${v}/lazy-attr-animation.min.css"[end-str]/>`);;
 
     document.querySelector('#attr-script').innerHTML = "Attribute(s): " + window.lazy().parameters.join(", ");
     document.querySelector('#attr-script').innerHTML += "<span style='display: block'>Variable(s): window.lazy</span>";
@@ -207,7 +215,7 @@
     select.onchange = () => {
         let v = select.value;
         code.innerHTML = `lazy-animation="${v}"`;
-        image.removeAttribute('class');
+        image.parentNode.className = "card";
         image.removeAttribute('lazy-animation');
         image.setAttribute('lazy-animation', v);
     }

@@ -1,0 +1,187 @@
+/**
+* https://github.com/yoannchb-pro/Lazy-attr
+* VERSION: 1.0.3
+*/
+
+/*CLASSES*/
+.blur-animation{
+    opacity: 0;
+    filter: blur(7px);
+    animation: blur 1s forwards;
+}
+
+.rotate3d-animation{
+    transform-style: preserve-3d;
+    transform: rotate3d(0,1,0,-180deg);
+    animation: rotate3d 1s forwards;
+}
+
+.rotate3d-up-animation{
+    transform-style: preserve-3d;
+    transform: rotate3d(1,0,0,-180deg);
+    animation: rotate3d-up 1s forwards;
+}
+
+.zoomin-animation{
+    transform: scale(0.5);
+    animation: zoomin 1s forwards;
+}
+
+.zoomout-animation{
+    transform: scale(1.5);
+    animation: zoomout 1s forwards;
+}
+
+.rotate-animation{
+    transform: rotate(0deg);
+    animation: rotate 1s forwards;
+}
+
+.opacity-animation{
+    opacity: 0;
+    animation: opacity 1s forwards;
+}
+
+.from-left-animation{
+    opacity: 0;
+    animation: from-left 1s forwards;
+}
+
+.from-right-animation{
+    opacity: 0;
+    animation: from-right 1s forwards;
+}
+
+.from-top-animation{
+    opacity: 0;
+    animation: from-top 1s forwards;
+}
+
+.from-bottom-animation{
+    opacity: 0;
+    animation: from-bottom 1s forwards;
+}
+
+.shake-animation{
+    animation: shake 1s;
+}
+
+/*KEYFRAMES*/
+@keyframes rotate3d{
+    100%{
+        transform: rotate3d(0,1,0,0deg);
+    }
+}
+
+@keyframes rotate3d-up{
+    100%{
+        transform: rotate3d(1,0,0,0deg);
+    }
+}
+
+@keyframes blur{
+    100%{
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
+
+@keyframes from-left{
+    0%{
+        transform: translateX(-80%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes from-right{
+    0%{
+        transform: translateX(+80%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes from-top{
+    0%{
+        transform: translateY(-80%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes from-bottom{
+    0%{
+        transform: translateY(+80%);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomout{
+    100%{
+        transform: scale(1.0);
+    }
+}
+
+@keyframes zoomin{
+    100%{
+        transform: scale(1.0);
+    }
+}
+
+@keyframes rotate{
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes opacity{
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+    0% { 
+        transform: translate(1px, 1px) rotate(0deg);
+     }
+    10% { 
+        transform: translate(-1px, -2px) rotate(-1deg); 
+    }
+    20% { 
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+    30% { 
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+    40% { 
+        transform: translate(1px, -1px) rotate(1deg); 
+    }
+    50% { 
+        transform: translate(-1px, 2px) rotate(-1deg); 
+    }
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
