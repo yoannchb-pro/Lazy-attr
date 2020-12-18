@@ -1,6 +1,6 @@
 /**
  * https://github.com/yoannchb-pro/Lazy-attr
- * VERSION: 1.0.6
+ * VERSION: 1.0.7
  */
 
 //Datas
@@ -18,9 +18,16 @@ window.lazy = () => {
             let req = await fetch(u).catch(e => reject({error: true}));
             let res = await req.text().catch(e => reject({error: true}));
 
-            let nv = res.substring(res.indexOf('version'));
-            nv = nv.substring(nv.indexOf('"')+1);
-            nv = nv.substring(0,nv.indexOf('"'));
+            let iframe = document.createElement('iframe');
+            iframe.style.display = "none";
+            document.body.appendChild(iframe);
+
+            let script = document.createElement('script');
+            script.innerHTML = res;
+            iframe.contentWindow.console = {};
+            iframe.contentWindow.document.body.appendChild(script);
+
+            let nv = iframe.contentWindow.window.lazy().version;
 
             resolve({version: nv});
         });
@@ -99,12 +106,12 @@ window.lazy = () => {
             threshold: 0
         },
         //version
-        version: "1.0.6"
+        version: "1.0.7"
     }
 }
 
 //WARN for update
-(async () => {
+window.addEventListener('load', async () => {
     let v = await window.lazy().getLastVersion();
     if(v.error){
         console.error("Lazzy-attr : error while fetching to see for update !");
@@ -119,10 +126,10 @@ window.lazy = () => {
 
             if(nv) console.warn(`Lazzy-attr : new version ${ver} available !`);
             if(good) console.info(`Lazy-attr : you have the latest version ${actv}`)
-            if(error) console.warn(`Lazzy-attr : ${ver} is not a valid version !`);
+            if(error) console.warn(`Lazzy-attr : ${actv} is not a valid version !`);
         } catch(e) {}
     }
-})();
+});
 
 
 
