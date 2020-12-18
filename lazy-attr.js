@@ -1,6 +1,6 @@
 /**
  * https://github.com/yoannchb-pro/Lazy-attr
- * VERSION: 1.0.7
+ * VERSION: 1.0.8
  */
 
 //Datas
@@ -18,16 +18,9 @@ window.lazy = () => {
             let req = await fetch(u).catch(e => reject({error: true}));
             let res = await req.text().catch(e => reject({error: true}));
 
-            let iframe = document.createElement('iframe');
-            iframe.style.display = "none";
-            document.body.appendChild(iframe);
-
-            let script = document.createElement('script');
-            script.innerHTML = res;
-            iframe.contentWindow.console = {};
-            iframe.contentWindow.document.body.appendChild(script);
-
-            let nv = iframe.contentWindow.window.lazy().version;
+            let p = '[#version]';
+            let nv = res.substring(res.indexOf(p)+p.length);
+            nv = nv.substring(0, nv.indexOf(p));
 
             resolve({version: nv});
         });
@@ -106,7 +99,9 @@ window.lazy = () => {
             threshold: 0
         },
         //version
-        version: "1.0.7"
+        version: "1.0.8",
+        //version matcher
+        versionMatcher: "[#version]1.0.8[#version]" 
     }
 }
 
