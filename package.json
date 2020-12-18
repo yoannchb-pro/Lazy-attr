@@ -1,6 +1,6 @@
 {
   "name": "lazy-attr",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Make a lazy page with lazy video, embed, image and animations on scrolling.",
   "main": "lazy-attr.js",
   "scripts": {

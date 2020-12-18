@@ -1,6 +1,14 @@
 //todo
-animations:
+page de test ? (hard)
+
+html:
 -----------------
 ?
 
-google analytique
+js:
+-----------------
+?
+
+animations:
+-----------------
+pb corner regarder test / image hors cadre / zoomin ? (hard)

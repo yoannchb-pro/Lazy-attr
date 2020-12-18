@@ -1,11 +1,9 @@
 body,html{
     margin: 0;
     padding: 0;
-
-    overflow-x: hidden;
 }
 
-*{
+p, span, code, h1{
     font-family: Arial;
 }
 
@@ -29,9 +27,11 @@ header h1{
 }
 
 section{
-    position: absolute;
     width: 100%;
-    top: 3em;
+    -webkit-transform: translateY(+3em);
+        -ms-transform: translateY(+3em);
+            transform: translateY(+3em);
+    overflow-y: hidden;
 }
 
 select{
@@ -52,13 +52,12 @@ footer{
 }
 
 .row{
+    width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-
-    width: 100%;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
 }
 
 .col, .col-delay, .col-code, .col-test{
@@ -66,14 +65,18 @@ footer{
         -ms-flex: 1 1 50%;
             flex: 1 1 50%;
 
-    min-width: 28em;
     height: 25em;
+
+    text-align: center;
+    word-wrap: break-word;
 
     display: -webkit-box;
 
     display: -ms-flexbox;
 
     display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -82,8 +85,12 @@ footer{
             align-items: center;
 }
 
+.col video, .col > img, .col iframe, .col p, .col span{
+    max-width: 90%;
+}
+
 .col-code{
-    height: 22em;
+    height: 27em;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -116,14 +123,14 @@ footer{
     height: 315px;
 }
 
-.col img, .col video{
+.col img, .col video, .col iframe{
     height: 90%;
 }
 
 .col-delay img{ height: auto;}
 
 .image-list img{
-    width: calc((100% - 10em)/5);
+    width: calc((100% / 5) - 3em);
     margin: 1em;
 }
 
@@ -225,3 +232,12 @@ footer{
     margin: 1em;
     text-align: center;
 }
+
+@media (max-width: 640px) {
+    .row{
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+    }
+  }

@@ -1,11 +1,11 @@
 /**
  * https://github.com/yoannchb-pro/Lazy-attr
- * VERSION: 1.0.8
+ * VERSION: 1.0.9
  */
 
 //Datas
 window.lazyDatas = {
-    updateURL: "https://cdn.jsdelivr.net/gh/yoannchb-pro/lazy-attr@latest/lazy-attr.min.js"
+    updateURL: "https://cdn.jsdelivr.net/npm/lazy-attr@latest/lazy-attr.min.js"
 };
 
 //Locked methods
@@ -99,9 +99,9 @@ window.lazy = () => {
             threshold: 0
         },
         //version
-        version: "1.0.8",
+        version: "1.0.9",
         //version matcher
-        versionMatcher: "[#version]1.0.8[#version]" 
+        versionMatcher: "[#version]1.0.9[#version]" 
     }
 }
 
@@ -142,33 +142,10 @@ if(!window.IntersectionObserver){
         init(){
             const obj = this;
             const listener = () => {
-                const x = window.scrollX;
-                const y = window.scrollY;
                 const entries = [];
                 obj.elements.forEach(element => {
-                    let intersect = false;
-    
-                    let bodyRect = document.body.getBoundingClientRect();
-                    let pos = element.getBoundingClientRect();
-    
-                    let hIntersect = false;
-                    let vIntersect = false;
-    
-                    let top = pos.top - bodyRect.top;
-                    let bottom = pos.bottom - bodyRect.bottom;
-                    let right = pos.right - bodyRect.right;
-                    let left = pos.left - bodyRect.left;
-    
-                    let topCondition = (top >= y && top <= y+window.innerHeight);
-                    let bottomCondition = (bottom <= y+window.innerHeight && bottom >= y);
-                    let leftCondition = (left >= x && left <= x+window.innerWidth);
-                    let rightCondition = (right <= x+window.innerWidth && right >= x);
-    
-                    if(topCondition || bottomCondition) vIntersect = true;
-                    if(leftCondition || rightCondition) hIntersect = true;
-    
-                    if(hIntersect && vIntersect) intersect = true;
-    
+                    let intersect = obj.isIntersecting(element);
+
                     entries.push({
                         target: element,
                         isIntersecting: intersect
@@ -178,10 +155,40 @@ if(!window.IntersectionObserver){
             };
     
             this.listener = listener;
-    
-            window.addEventListener('scroll', listener);
+
+            const requestAnimationFrameSetup = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+            if(requestAnimationFrameSetup){
+                (function loopDomChangement(){
+                    listener();
+                    requestAnimationFrameSetup(loopDomChangement);
+                })();
+            } else {
+                console.error('Lazy-attr : your browser do not requestAnimationFrame');
+            }
         }
     
+        isIntersecting(element){
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            const pos = element.getBoundingClientRect();
+    
+            let hIntersect = false;
+            let vIntersect = false;
+    
+            let topCondition = pos.top >= 0 && pos.top <= height;
+            let bottomCondition = pos.bottom >= 0 && pos.bottom <= height;
+            let leftCondition = pos.left >= 0 && pos.left <= width;
+            let rightCondition = pos.right >= 0 && pos.right <= width;
+    
+            if(topCondition || bottomCondition) vIntersect = true;
+            if(leftCondition || rightCondition) hIntersect = true;
+    
+            if(hIntersect && vIntersect) return true;
+
+            return false;
+        }
+
         observe(e){
             if(e) {
                 this.elements.push(e);
@@ -317,8 +324,7 @@ window.addEventListener('load', () => {
                 if(code){
                     let poster = target.getAttribute('lazy-poster'); //Permet de mettre un poster à la vidéo
                     if(poster) poster = `url('${poster}')`; else poster = "#000";
-                    target.setAttribute("srcdoc", `<style>body{background: ${poster}; background-position: center; background-size: cover;}*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style>
-                    <a href='${code}'><span>▶</span></a>`);
+                    target.setAttribute("srcdoc", `<style>body{background: ${poster}; background-position: center; background-size: cover;}*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='${code}'><span>▶</span></a>`);
                 }
                 
                 //Lazy src

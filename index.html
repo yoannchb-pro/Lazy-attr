@@ -147,7 +147,7 @@
         </div>
         <div class="row image-list">
             <div class="col-delay">
-                <img class="scale05" alt="Random image" lazy-src="https://picsum.photos/300/300?random=4" lazy-animation="zoomin-animation" lazy-reset/>
+                <img alt="Random image" lazy-src="https://picsum.photos/300/300?random=4" lazy-animation="zoomin-animation" lazy-reset/>
                 <img lazy-animation-delay="0.3" alt="Random image" lazy-src="https://picsum.photos/300/300?random=5" 
                 lazy-animation="zoomin-animation" lazy-reset/>
                 <img lazy-animation-delay="0.6" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" 
@@ -156,6 +156,33 @@
                  lazy-animation="zoomin-animation" lazy-reset/>
                 <img lazy-animation-delay="1.2" alt="Random image" lazy-src="https://picsum.photos/300/300?random=8"
                  lazy-animation="zoomin-animation" lazy-reset/>
+            </div>
+        </div>
+        <hr>
+        <!-- Test lazy list -->
+        <div class="row" style="overflow-x: auto;">
+            <div class="col-delay">
+                <img alt="Random image" lazy-src="https://picsum.photos/300/300?random=4" lazy-animation="opacity-animation" lazy-reset/>
+                <img lazy-animation-delay="0.3" alt="Random image" lazy-src="https://picsum.photos/300/300?random=5" 
+                lazy-animation="opacity-animation" lazy-reset/>
+                <img lazy-animation-delay="0.6" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" 
+                lazy-animation="opacity-animation" lazy-reset/>
+                <img lazy-animation-delay="0.9" alt="Random image" lazy-src="https://picsum.photos/300/300?random=7"
+                 lazy-animation="opacity-animation" lazy-reset/>
+                <img lazy-animation-delay="1.2" alt="Random image" lazy-src="https://picsum.photos/300/300?random=8"
+                 lazy-animation="opacity-animation" lazy-reset/>
+                 <img lazy-animation-delay="0.6" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" 
+                 lazy-animation="opacity-animation" lazy-reset/>
+                 <img lazy-animation-delay="0.9" alt="Random image" lazy-src="https://picsum.photos/300/300?random=7"
+                  lazy-animation="opacity-animation" lazy-reset/>
+                 <img lazy-animation-delay="1.2" alt="Random image" lazy-src="https://picsum.photos/300/300?random=8"
+                  lazy-animation="opacity-animation" lazy-reset/>
+                  <img lazy-animation-delay="0.3" alt="Random image" lazy-src="https://picsum.photos/300/300?random=5" 
+                  lazy-animation="opacity-animation" lazy-reset/>
+                  <img lazy-animation-delay="0.6" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" 
+                  lazy-animation="opacity-animation" lazy-reset/>
+                  <img lazy-animation-delay="0.9" alt="Random image" lazy-src="https://picsum.photos/300/300?random=7"
+                   lazy-animation="opacity-animation" lazy-reset/>
             </div>
         </div>
         <hr>
@@ -205,8 +232,8 @@
          .split('[separate]');
     }
 
-    document.querySelector('#code-script').innerHTML = toCodeHtml(`<script [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/gh/yoannchb-pro/lazy-attr@latest/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]>`);
-    document.querySelector('#code-link').innerHTML = toCodeHtml(`<link [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/gh/yoannchb-pro/lazy-attr@latest/lazy-attr-animation.min.css"[end-str]/>`);;
+    document.querySelector('#code-script').innerHTML = toCodeHtml(`<script [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@${v}/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]>`);
+    document.querySelector('#code-link').innerHTML = toCodeHtml(`<link [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@${v}/lazy-attr-animation.min.css"[end-str]/>`);;
 
     document.querySelector('#attr-script').innerHTML = "<u>Attribute(s):</u> " + window.lazy().parameters.join(", ");
     document.querySelector('#attr-script').innerHTML += "<span style='display: block'><u>Variable(s):</u> window.lazy()</span>";
