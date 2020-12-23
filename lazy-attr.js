@@ -1,6 +1,6 @@
 /**
  * https://github.com/yoannchb-pro/Lazy-attr
- * VERSION: 1.1.0
+ * VERSION: 1.1.1
  */
 'use strict';
 
@@ -183,9 +183,9 @@ window.lazy = function(){
             threshold: 0
         },
         //version
-        version: "1.1.0",
+        version: "1.1.1",
         //version matcher
-        versionMatcher: "[#version]1.1.0[#version]" 
+        versionMatcher: "[#version]1.1.1[#version]" 
     }
 }
 
