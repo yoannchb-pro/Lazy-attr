@@ -22,8 +22,6 @@ header{
 header h1{
     margin: 0;
     color: #999999;
-
-    opacity: 0;
 }
 
 section{
@@ -87,6 +85,20 @@ footer{
 
 .col video, .col > img, .col iframe, .col p, .col span{
     max-width: 90%;
+}
+
+.col-hoz{
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    height: 330px;
+    white-space: nowrap;
+}
+
+.col-hoz img{
+    display: inline-block;
+    min-width: 300px;
+    min-height: 300px;
 }
 
 .col-code{

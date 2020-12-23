@@ -4,14 +4,6 @@
  */
 'use strict';
 
-//Foreach creation for IE
-if(window.NodeList && !NodeList.prototype.forEach) {
-    NodeList.prototype.forEach = Array.prototype.forEach;
-  }
-if(window.HTMLCollection && !HTMLCollection.prototype.forEach) {
-    HTMLCollection.prototype.forEach = Array.prototype.forEach;
-}
-
 //Datas
 window.lazyDatas = {
     updateURL: "https://cdn.jsdelivr.net/npm/lazy-attr@latest/lazy-attr.min.js",
@@ -82,25 +74,23 @@ window.lazy = function(){
 
     /**
      * verify if there is an update or not
-     * @param {Function} fback 
      */
-    function getLastVersion(fback){
-        let req = new XMLHttpRequest();
-        req.onload = function(){
-            const res = req.responseText;
 
-            const p = '[#version]';
+     //ie: asyn and await
+    function getLastVersion(){
+        return new Promise(function(resolve, reject){
+            let u = window.lazyDatas["updateURL"];
+
+            let req = fetch(u).catch(function(e){ reject({error: true}); });
+            let res = req.text().catch(function(e){ reject({error: true}); });
+
+            let p = '[#version]';
             let nv = res.substring(res.indexOf(p)+p.length);
             nv = nv.substring(nv.indexOf(p)+p.length);
             nv = nv.substring(0, nv.indexOf(p));
-            fback({version: nv});
-        }
-        req.onerror = function(){
-            fback({error: true});
-        }
 
-        req.open('GET', window.lazyDatas["updateURL"]);
-        req.send();
+            resolve({version: nv});
+        });
     };
 
     /**
@@ -190,37 +180,41 @@ window.lazy = function(){
 }
 
 //WARN for update
-window.addEventListener('load', function(){
-    window.lazy().getLastVersion(function(v){
-        if(v.error){
-            console.error("Lazzy-attr : error while fetching to see for update !");
-        } else {
-            try{
-                let ver = v.version;
-                let actv = window.lazy().version;
-    
-                let nv = ver>actv;
-                let good = ver===actv;
-                let error = ver<actv;
-    
-                if(nv) console.warn("Lazzy-attr : new version " + ver + " available !");
-                if(good) console.info("Lazy-attr : you have the latest version " + actv)
-                if(error) console.warn("Lazzy-attr : " + actv + " is not a valid version !");
-            } catch(e) {}
-        }
-    });
+/*
+window.addEventListener('load', async function(){
+    let v = await window.lazy().getLastVersion();
+    if(v.error){
+        console.error("Lazzy-attr : error while fetching to see for update !");
+    } else {
+        try{
+            let ver = v.version;
+            let actv = window.lazy().version;
+
+            let nv = ver>actv;
+            let good = ver===actv;
+            let error = ver<actv;
+
+            if(nv) console.warn(`Lazzy-attr : new version ${ver} available !`);
+            if(good) console.info(`Lazy-attr : you have the latest version ${actv}`)
+            if(error) console.warn(`Lazzy-attr : ${actv} is not a valid version !`);
+        } catch(e) {}
+    }
 });
+*/
 
 //Create IntersectionObserver for old version of navigator
 if(!window.IntersectionObserver){
 
-    //Create a prototype of the IntersectionObserver polyfill
-    window.IntersectionObserver = function IntersectionObserver(callback, options){
-        this.callback = callback;
-        this.elements = [];
-        window.lazyDatas.originalObserver = false;
+    //Create a prototype of the IntersectionObserver
+    window.IntersectionObserver = class IntersectionObserver{
+        constructor(callback, options){
+            this.callback = callback;
+            this.elements = [];
+            window.lazyDatas.originalObserver = false;
+            this.init();
+        }
     
-        function init(){
+        init(){
             const obj = this;
             function listener(){
                 const entries = [];
@@ -232,7 +226,7 @@ if(!window.IntersectionObserver){
                         isIntersecting: intersect
                     });
                 });
-                callback(entries, obj);
+                this.callback(entries, obj);
             };
     
             this.listener = listener;
@@ -248,34 +242,30 @@ if(!window.IntersectionObserver){
             }
         }
 
-        function observe(e){
+        observe(e){
             if(e) {
                 this.elements.push(e);
+                this.listener();
             }
         }
     
-        function unobserve(e){
+        unobserve(e){
             if(e) {
                 let index = this.elements.indexOf(e);
                 if(index != -1) {
                     this.elements.splice(index, 1);
+                    this.listener();
                 }
             }
         }
-        
-        this.init = init;
-        this.observe = observe;
-        this.unobserve = unobserve;
-        
-        this.init();
     }
 }
 
 //DOM loaded
 window.addEventListener('load', function(){
     //Function to display error and info
-    function displayInfo(m){console.info("[INFO] Lazy-attr : " + m);};
-    function displayError(m){console.error("[ERROR] Lazy-attr : " + m);};
+    function displayInfo(m){console.info(`[INFO] Lazy-attr : ${m}`);};
+    function displayError(m){console.error(`[ERROR] Lazy-attr : ${m}`);};
 
     /**
      * Main function
@@ -338,15 +328,15 @@ window.addEventListener('load', function(){
                     //Animation duration
                     let animationTime = target.getAttribute('lazy-animation-time');
                     if(animationTime) {
-                        e.style.animationDuration = animationTime + "s";
-                        e.style.webkitAnimationDuration = animationTime + "s";
+                        e.style.animationDuration = `${animationTime}s`;
+                        e.style.webkitAnimationDuration = `${animationTime}s`;
                     }
 
                     //Animation delay
                     let animationDelay = target.getAttribute('lazy-animation-delay');
                     if(animationDelay) {
-                        e.style.animationDelay = animationDelay + "s";
-                        e.style.webkitAnimationDelay = animationDelay + "s";
+                        e.style.animationDelay = `${animationDelay}s`;
+                        e.style.webkitAnimationDelay = `${animationDelay}s`;
                     }
 
                     //Animation count
@@ -438,8 +428,8 @@ window.addEventListener('load', function(){
                 let code = target.getAttribute('lazy-embed');
                 if(code){
                     let poster = target.getAttribute('lazy-poster'); //Permet de mettre un poster à la vidéo
-                    if(poster) poster = "url('" + poster + "')"; else poster = "#000";
-                    target.setAttribute("srcdoc", "<style>body{background: " + poster + "; background-position: center; background-size: cover;}*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='${code}'><span>▶</span></a>");
+                    if(poster) poster = `url('${poster}')`; else poster = "#000";
+                    target.setAttribute("srcdoc", `<style>body{background: ${poster}; background-position: center; background-size: cover;}*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='${code}'><span>▶</span></a>`);
                 }
                 
                 //Lazy src
@@ -459,7 +449,7 @@ window.addEventListener('load', function(){
             //Not intersecting
             } else if(target.getAttribute('lazy-reset') != null && !window.lazy().isIntersectingWithoutTransform(target)){ //Reload animation
                 //Reset function
-                function resetAnimation(e, animationClass){
+                function resetAnimation(e, animationClass=false){
                     //remove animation
                     if(animationClass) e.classList.remove(animationClass);
                 }

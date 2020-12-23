@@ -160,29 +160,30 @@
         </div>
         <hr>
         <!-- Test lazy list -->
-        <div class="row" style="overflow-x: auto;">
-            <div class="col-delay">
-                <img alt="Random image" lazy-src="https://picsum.photos/300/300?random=4" lazy-animation="opacity-animation" lazy-reset/>
+        <div class="row">
+            <div class="col-hoz">
+                <img alt="Random image" lazy-src="https://picsum.photos/300/300?random=4" 
+                lazy-animation="opacity-animation"/>
                 <img lazy-animation-delay="0.3" alt="Random image" lazy-src="https://picsum.photos/300/300?random=5" 
-                lazy-animation="opacity-animation" lazy-reset/>
+                lazy-animation="opacity-animation"/>
                 <img lazy-animation-delay="0.6" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" 
-                lazy-animation="opacity-animation" lazy-reset/>
+                lazy-animation="opacity-animation"/>
                 <img lazy-animation-delay="0.9" alt="Random image" lazy-src="https://picsum.photos/300/300?random=7"
-                 lazy-animation="opacity-animation" lazy-reset/>
+                 lazy-animation="opacity-animation"/>
                 <img lazy-animation-delay="1.2" alt="Random image" lazy-src="https://picsum.photos/300/300?random=8"
-                 lazy-animation="opacity-animation" lazy-reset/>
+                 lazy-animation="opacity-animation"/>
                  <img lazy-animation-delay="0.6" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" 
-                 lazy-animation="opacity-animation" lazy-reset/>
+                 lazy-animation="opacity-animation"/>
                  <img lazy-animation-delay="0.9" alt="Random image" lazy-src="https://picsum.photos/300/300?random=7"
-                  lazy-animation="opacity-animation" lazy-reset/>
+                  lazy-animation="opacity-animation"/>
                  <img lazy-animation-delay="1.2" alt="Random image" lazy-src="https://picsum.photos/300/300?random=8"
-                  lazy-animation="opacity-animation" lazy-reset/>
+                  lazy-animation="opacity-animation"/>
                   <img lazy-animation-delay="0.3" alt="Random image" lazy-src="https://picsum.photos/300/300?random=5" 
-                  lazy-animation="opacity-animation" lazy-reset/>
+                  lazy-animation="opacity-animation"/>
                   <img lazy-animation-delay="0.6" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" 
-                  lazy-animation="opacity-animation" lazy-reset/>
+                  lazy-animation="opacity-animation"/>
                   <img lazy-animation-delay="0.9" alt="Random image" lazy-src="https://picsum.photos/300/300?random=7"
-                   lazy-animation="opacity-animation" lazy-reset/>
+                   lazy-animation="opacity-animation"/>
             </div>
         </div>
         <hr>
@@ -220,20 +221,20 @@
 <!-- CODE -->
 <script>
     let v = window.lazy().version;
-    document.querySelector('#title').innerHTML += ` v${v}`;
+    document.querySelector('#title').innerHTML += "v " + v;
 
     function toCodeHtml(t){
         return t.replace(/\</gi, "&lt;")
          .replace(/\>/gi, "&gt;")
-         .replace(/\[str\]/gi, `<span class='html-str'>`)
+         .replace(/\[str\]/gi, "<span class='html-str'>")
          .replace(/\[end-str\]/gi, "</span>")
-         .replace(/\[attr\]/gi, `<span class='html-attr'>`)
+         .replace(/\[attr\]/gi, "<span class='html-attr'>")
          .replace(/\[end-attr\]/gi, "</span>")
          .split('[separate]');
     }
 
-    document.querySelector('#code-script').innerHTML = toCodeHtml(`<script [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@${v}/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]>`);
-    document.querySelector('#code-link').innerHTML = toCodeHtml(`<link [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@${v}/lazy-attr-animation.min.css"[end-str]/>`);;
+    document.querySelector('#code-script').innerHTML = toCodeHtml('<script [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@$' + v + '/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]>');
+    document.querySelector('#code-link').innerHTML = toCodeHtml('<link [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@' + v + '/lazy-attr-animation.min.css"[end-str]/>');;
 
     document.querySelector('#attr-script').innerHTML = "<u>Attribute(s):</u> " + window.lazy().parameters.join(", ");
     document.querySelector('#attr-script').innerHTML += "<span style='display: block'><u>Variable(s):</u> window.lazy()</span>";
@@ -245,14 +246,14 @@
     const code = document.querySelector("#code-animation");
 
     const animationList = window.lazy().animations;
-    animationList.forEach(e => {
+    animationList.forEach(function(e){
         let c = e+"-animation";
-        select.innerHTML += `<option value="${c}">${e}</option>`;
+        select.innerHTML += "<option value='" + c + "'>" + e + "</option>";
     });
 
-    select.onchange = () => {
+    select.onchange = function(){
         let v = select.value;
-        code.innerHTML = `lazy-animation="${v}"`;
+        code.innerHTML = 'lazy-animation="' + v + '"';
         window.lazy().changeAnimation(image, v, true);
     }
 </script>
