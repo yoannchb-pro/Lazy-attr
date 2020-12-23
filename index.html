@@ -233,7 +233,7 @@
          .split('[separate]');
     }
 
-    document.querySelector('#code-script').innerHTML = toCodeHtml('<script [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@$' + v + '/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]>');
+    document.querySelector('#code-script').innerHTML = toCodeHtml('<script [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@' + v + '/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]>');
     document.querySelector('#code-link').innerHTML = toCodeHtml('<link [attr]src[end-attr]=[str]"https://cdn.jsdelivr.net/npm/lazy-attr@' + v + '/lazy-attr-animation.min.css"[end-str]/>');;
 
     document.querySelector('#attr-script').innerHTML = "<u>Attribute(s):</u> " + window.lazy().parameters.join(", ");
