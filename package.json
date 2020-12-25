@@ -1,8 +1,8 @@
 {
   "name": "lazy-attr",
-  "version": "1.1.1",
-  "description": "Make a lazy page with lazy video, embed, image and animations on scrolling.",
-  "main": "lazy-attr.js",
+  "version": "1.1.2",
+  "description": "Make a lazy page with lazy video, embed, image and animations on scrolling supported by IE.",
+  "main": "./lib/lazy-attr.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,7 +16,7 @@
     "js",
     "css",
     "attributes",
-    "animation",
+    "animations",
     "yoannchb"
   ],
   "author": "yoannchb",
