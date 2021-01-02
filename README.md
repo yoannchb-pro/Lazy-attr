@@ -1,4 +1,4 @@
-# 📖 Lazy-attr v1.1.3 - beta
+# 📖 Lazy-attr v1.1.4
 Create lazy image, embed, video... Make animation on lazy and not lazy element. All of that just with html attributes.
 ## 🎉 Update
 --------
@@ -12,8 +12,8 @@ The project is in beta so don't worry for bugs
 ## 💻 Import
 --------
 ```html
-<script src="https://unpkg.com/lazy-attr@1.1.3/lib/lazy-attr.min.js" type="text/javascript"></script>
-<link href="https://unpkg.com/lazy-attr@1.1.3/lib/lazy-attr-animation.min.css" rel="stylesheet"/>
+<script src="https://unpkg.com/lazy-attr@1.1.4/lib/lazy-attr.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/lazy-attr@1.1.4/lib/lazy-attr-animation.min.css" rel="stylesheet"/>
 <!-- or -->
 <script src="./lib/lazy-attr.min.js" type="text/javascript"></script>
 <link href="./lib/lazy-attr-animation.min.css" rel="stylesheet"/>
