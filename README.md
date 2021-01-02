@@ -12,11 +12,11 @@ The project is in beta so don't worry for bugs
 ## 💻 Import
 --------
 ```html
-<script src="https://unpkg.com/lazy-attr@1.1.3/lib/lazy-attr.min.js"></script>
-<link src="https://unpkg.com/lazy-attr@1.1.3/lib/lazy-attr-animation.min.css"/>
+<script src="https://unpkg.com/lazy-attr@1.1.3/lib/lazy-attr.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/lazy-attr@1.1.3/lib/lazy-attr-animation.min.css" rel="stylesheet"/>
 <!-- or -->
-<script src="./lib/lazy-attr.min.js"></script>
-<link src="./lib/lazy-attr-animation.min.css"/>
+<script src="./lib/lazy-attr.min.js" type="text/javascript"></script>
+<link href="./lib/lazy-attr-animation.min.css" rel="stylesheet"/>
 ```
 ## 🐱 Github and NPM
 --------
