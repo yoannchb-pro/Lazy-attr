@@ -233,7 +233,7 @@
          .split('[separate]');
     }
 
-    document.querySelector('#code-script').innerHTML = toCodeHtml('<script [attr]src[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/lib/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]></script>');
+    document.querySelector('#code-script').innerHTML = toCodeHtml('<script [attr]src[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/lib/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]><\/script>');
     document.querySelector('#code-link').innerHTML = toCodeHtml('<link [attr]href[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/lib/lazy-attr-animation.min.css"[end-str] [attr]rel[end-attr]=[str]"stylesheet"[end-str]/>');;
 
     document.querySelector('#attr-script').innerHTML = "<u>Attribute(s):</u> " + window.lazy().parameters.join(", ");
