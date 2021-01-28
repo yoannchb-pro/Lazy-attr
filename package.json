@@ -10,6 +10,11 @@
     "min-js": "minify ./dist/lazy-attr.js > ./dist/lazy-attr.min.js",
     "min-css": "minify ./dist/lazy-attr-animation.css > ./dist/lazy-attr-animation.min.css"
   },
+  "homepage": "https://yoannchb-pro.github.io/Lazy-attr/index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoannchb-pro/Lazy-attr"
+  },
   "keywords": [
     "lazy",
     "load",
