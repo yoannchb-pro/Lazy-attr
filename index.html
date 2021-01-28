@@ -16,8 +16,8 @@
     <title>Lazy-attr || Lazy page and Animations</title>
 
     <!-- LIB css + js-->
-    <script src="./lib/lazy-attr.min.js"></script>
-    <link href="./lib/lazy-attr-animation.min.css" rel="stylesheet"/>
+    <script src="./dist/lazy-attr.min.js"></script>
+    <link href="./dist/lazy-attr-animation.min.css" rel="stylesheet"/>
 
 
     <link href="./css/main.css" rel="stylesheet"/>
@@ -52,7 +52,7 @@
                     Example of an image which this lazy load and which when scrolling launches the animation even after having
                     already performed once the animation. Just add these attributes in your img. This image will make an animation on his parent
                     by selecting him with the attribute "lazy-animation-pointer".
-                    <code>lazy-src="https://picsum.photos/300/300?random=1" lazy-animation="zoomin-animation" lazy-animation-pointer="#pointer" lazy-reset</code>
+                    <code>lazy-src="https://picsum.photos/300/300?random=1" lazy-srcset="..." lazy-animation="zoomin-animation" lazy-animation-pointer="#pointer" lazy-reset</code>
                 </p>
             </div>
             <div class="col">
@@ -126,12 +126,12 @@
         <div class="row" id="video-block">
             <div class="col">
                 <video controls lazy-video="https://picsum.photos/560/315?random=10" lazy-src="./assets/flower.mp4" 
-                lazy-animation="flip-animation" lazy-animation-pointer="#video-block" type="video/mp4"></video>
+                lazy-animation="flip-animation" lazy-animation-pointer="#video-block" type="video/mp4" lazy-callback="loaded"></video>
             </div>
             <div class="col">
                 <p>
                     Example of a video in lazy mode without preload and a poster. Lazy-video make the video in not preload mode and put a poster.
-                    <code>lazy-video="https://picsum.photos/560/315?random=10" lazy-src="./assets/flower.mp4"</code>
+                    <code>lazy-video="https://picsum.photos/560/315?random=10" lazy-src="./assets/flower.mp4" lazy-callback="loaded"</code>
                 </p>
             </div>
         </div>
@@ -218,6 +218,12 @@
         </footer>
     </section>
 </body>
+<!-- LOADED VIDEO -->
+<script>
+    function loaded(){
+        console.log('Video loaded');
+    }
+</script>
 <!-- CODE -->
 <script>
     let v = window.lazy().version;
@@ -233,8 +239,8 @@
          .split('[separate]');
     }
 
-    document.querySelector('#code-script').innerHTML = toCodeHtml('<script [attr]src[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/lib/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]><\/script>');
-    document.querySelector('#code-link').innerHTML = toCodeHtml('<link [attr]href[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/lib/lazy-attr-animation.min.css"[end-str] [attr]rel[end-attr]=[str]"stylesheet"[end-str]/>');;
+    document.querySelector('#code-script').innerHTML = toCodeHtml('<script [attr]src[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/dist/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]><\/script>');
+    document.querySelector('#code-link').innerHTML = toCodeHtml('<link [attr]href[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/dist/lazy-attr-animation.min.css"[end-str] [attr]rel[end-attr]=[str]"stylesheet"[end-str]/>');;
 
     document.querySelector('#attr-script').innerHTML = "<u>Attribute(s):</u> " + window.lazy().parameters.join(", ");
     document.querySelector('#attr-script').innerHTML += "<span style='display: block'><u>Variable(s):</u> window.lazy()</span>";

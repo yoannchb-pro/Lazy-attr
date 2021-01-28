@@ -1,10 +1,14 @@
 {
   "name": "lazy-attr",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Make a lazy page with lazy video, embed, image and animations on scrolling supported by IE.",
   "main": "./lib/lazy-attr.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npm run build && npm run min-js && npm run prefixer && npm run min-css",
+    "build": "rollup --config rollup.config.js",
+    "prefixer": "autoprefixer-cli -o ./dist/lazy-attr-animation.css ./src/css/lazy-attr-animation.css",
+    "min-js": "minify ./dist/lazy-attr.js > ./dist/lazy-attr.min.js",
+    "min-css": "minify ./dist/lazy-attr-animation.css > ./dist/lazy-attr-animation.min.css"
   },
   "keywords": [
     "lazy",
@@ -20,5 +24,11 @@
     "yoannchb"
   ],
   "author": "yoannchb",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-babel": "^5.2.2"
+  },
+  "dependencies": {
+    "@babel/core": "^7.12.10"
+  }
 }
