@@ -10,8 +10,8 @@ Create lazy image, iframe, video... Make custom animation on lazy and not lazy e
 - BUGS corrections
 - Build with rollup and babel
 - IE correction
-- added `lazy-size` to define a default size for a lazy element
-- added a class to make a custom element (`lazyattr` and `lazyattr-loaded`)
+- added `lazy-size-width` and `lazy-size-height` to define a default size for a lazy element
+- added a class to make a custom element (`lazyattr` and `lazyloaded`)
 
 ## 🐱 Github and NPM
 ---
