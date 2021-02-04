@@ -16,11 +16,17 @@
     <title>Lazy-attr || Lazy page and Animations</title>
 
     <!-- LIB css + js-->
-    <script src="./dist/lazy-attr.min.js"></script>
+    <script src="./dist/lazy-attr.min.js" async></script>
     <link href="./dist/lazy-attr-animation.min.css" rel="stylesheet"/>
 
 
     <link href="./css/main.css" rel="stylesheet"/>
+
+    <style>
+        .lazyloaded{
+            filter: grayscale(100%);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -34,7 +40,8 @@
         <div class="row">
             <div class="col-code html-block">
                 <p style="color: whitesmoke">
-                      Create a beautiful webpage with <b>lazy</b> image, embed, video ... Moreover, use or create beautiful <b>animations</b> on lazy and not lazy elements.
+                      Create a beautiful webpage with <b>lazy</b> image, iframe, video ... Moreover, use or create beautiful <b>animations</b> on lazy and not lazy elements on all browser.
+                      <br>You can also use our animations included in the lib <a style="color: cyan" href="#toanimate">here</a>.
                       All of that in one lib and only with <b>html attributes</b> !
                 </p>
                 <p>
@@ -80,12 +87,17 @@
             <div class="col">
                 <p>
                     Example of an image which this lazy load and which during scrolling several times.
-                    Then it is no longer taken into account.
-                    <code>lazy-src="https://picsum.photos/300/300?random=3" lazy-animation="opacity-animation" lazy-reset</code>
+                    Then it is no longer taken into account. I set a lazyloaded class to change the filter as grayscale.
+                    <code>lazy-src="https://picsum.photos/300/300?random=3" class="lazyattr" lazy-animation="opacity-animation" lazy-reset</code>
+                    <code>
+                        .lazyloaded{
+                            filter: grayscale(100%);
+                        }
+                    </code>
                 </p>
             </div>
             <div class="col">
-                <img class="noopacity" alt="Random image" lazy-reset lazy-src="https://picsum.photos/300/300?random=3" 
+                <img class="lazyattr" alt="Random image" lazy-reset lazy-src="https://picsum.photos/300/300?random=3" 
                 lazy-animation="opacity-animation" lazy-reset>
             </div>
         </div>
@@ -99,7 +111,9 @@
             <div class="col">
                 <p>
                     Example of an embed video which launches during the click and which executes an animation during the scroll.
-                    <code>lazy-embed="https://www.youtube.com/embed/Y8Wp3dafaMQ?autoplay=0" lazy-animation="shake-animation"</code>
+                    <code>lazy-embed="https://www.youtube.com/embed/Y8Wp3dafaMQ?autoplay=0" lazy-animation="shake-animation" 
+                        lazy-size-width="300px" lazy-size-height="300px"
+                    </code>
                 </p>
             </div>
         </div>
@@ -130,6 +144,7 @@
             </div>
             <div class="col">
                 <p>
+                    <strong id="video_stat">Video loading ...</strong>
                     Example of a video in lazy mode without preload and a poster. Lazy-video make the video in not preload mode and put a poster.
                     <code>lazy-video="https://picsum.photos/560/315?random=10" lazy-src="./assets/flower.mp4" lazy-callback="loaded"</code>
                 </p>
@@ -163,27 +178,27 @@
         <div class="row">
             <div class="col-hoz">
                 <img alt="Random image" lazy-src="https://picsum.photos/300/300?random=4" 
-                lazy-animation="opacity-animation"/>
+                lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
                 <img lazy-animation-delay="0.3" alt="Random image" lazy-src="https://picsum.photos/300/300?random=5" 
-                lazy-animation="opacity-animation"/>
+                lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
                 <img lazy-animation-delay="0.6" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" 
-                lazy-animation="opacity-animation"/>
+                lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
                 <img lazy-animation-delay="0.9" alt="Random image" lazy-src="https://picsum.photos/300/300?random=7"
-                 lazy-animation="opacity-animation"/>
+                 lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
                 <img lazy-animation-delay="1.2" alt="Random image" lazy-src="https://picsum.photos/300/300?random=8"
-                 lazy-animation="opacity-animation"/>
+                 lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
                  <img lazy-animation-delay="0.6" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" 
-                 lazy-animation="opacity-animation"/>
+                 lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
                  <img lazy-animation-delay="0.9" alt="Random image" lazy-src="https://picsum.photos/300/300?random=7"
-                  lazy-animation="opacity-animation"/>
+                  lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
                  <img lazy-animation-delay="1.2" alt="Random image" lazy-src="https://picsum.photos/300/300?random=8"
-                  lazy-animation="opacity-animation"/>
+                  lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
                   <img lazy-animation-delay="0.3" alt="Random image" lazy-src="https://picsum.photos/300/300?random=5" 
-                  lazy-animation="opacity-animation"/>
+                  lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
                   <img lazy-animation-delay="0.6" alt="Random image" lazy-src="https://picsum.photos/300/300?random=6" 
-                  lazy-animation="opacity-animation"/>
+                  lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
                   <img lazy-animation-delay="0.9" alt="Random image" lazy-src="https://picsum.photos/300/300?random=7"
-                   lazy-animation="opacity-animation"/>
+                   lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
             </div>
         </div>
         <hr>
@@ -221,29 +236,31 @@
 <!-- LOADED VIDEO -->
 <script>
     function loaded(){
-        console.log('Video loaded');
+        document.querySelector('#video_stat').innerHTML = "Video loaded !";
     }
 </script>
 <!-- CODE -->
 <script>
-    let v = window.lazy().version;
-    document.querySelector('#title').innerHTML += " v" + v;
+    window.addEventListener('load', function(){
+        let v = window.lazy().version;
+        document.querySelector('#title').innerHTML += " v" + v;
 
-    function toCodeHtml(t){
-        return t.replace(/\</gi, "&lt;")
-         .replace(/\>/gi, "&gt;")
-         .replace(/\[str\]/gi, "<span class='html-str'>")
-         .replace(/\[end-str\]/gi, "</span>")
-         .replace(/\[attr\]/gi, "<span class='html-attr'>")
-         .replace(/\[end-attr\]/gi, "</span>")
-         .split('[separate]');
-    }
+        function toCodeHtml(t){
+            return t.replace(/\</gi, "&lt;")
+            .replace(/\>/gi, "&gt;")
+            .replace(/\[str\]/gi, "<span class='html-str'>")
+            .replace(/\[end-str\]/gi, "</span>")
+            .replace(/\[attr\]/gi, "<span class='html-attr'>")
+            .replace(/\[end-attr\]/gi, "</span>")
+            .split('[separate]');
+        }
 
-    document.querySelector('#code-script').innerHTML = toCodeHtml('<script [attr]src[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/dist/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]><\/script>');
-    document.querySelector('#code-link').innerHTML = toCodeHtml('<link [attr]href[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/dist/lazy-attr-animation.min.css"[end-str] [attr]rel[end-attr]=[str]"stylesheet"[end-str]/>');;
+        document.querySelector('#code-script').innerHTML = toCodeHtml('<script [attr]src[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/dist/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str] [attr]async[end-attr]><\/script>');
+        document.querySelector('#code-link').innerHTML = toCodeHtml('<link [attr]href[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/dist/lazy-attr-animation.min.css"[end-str] [attr]rel[end-attr]=[str]"stylesheet"[end-str]/>');;
 
-    document.querySelector('#attr-script').innerHTML = "<u>Attribute(s):</u> " + window.lazy().parameters.join(", ");
-    document.querySelector('#attr-script').innerHTML += "<span style='display: block'><u>Variable(s):</u> window.lazy()</span>";
+        document.querySelector('#attr-script').innerHTML = "<u>Attribute(s):</u> " + window.lazy().parameters.join(", ");
+        document.querySelector('#attr-script').innerHTML += "<span style='display: block'><u>Global:</u> window.lazy()</span>";
+    });
 </script>
 <!-- ANIMATION LIST -->
 <script>

@@ -3,14 +3,19 @@ import lazyParameters from "./lazy-attr.parameters";
 import lazyAnimations from "./lazy-attr.animations";
 
 export default function lazyGlobal(){
+
     /**
-     * See object intersecting
-     * @param {HTMLElement} element 
+     * Get lhe lastest version
+     * @param {Function} callback 
      */
-    function getLastVersion(){
-        getUpdateLazyAttr();
+    function getLastVersion(callback){
+        getUpdateLazyAttr(callback);
     }
 
+    /**
+     * See object intersecting for polyfill
+     * @param {HTMLElement} element 
+     */
     function isIntersecting(element){
         const width = window.innerWidth;
         const height = window.innerHeight;
@@ -68,29 +73,6 @@ export default function lazyGlobal(){
     }
 
     /**
-     * verify if there is an update or not
-     * @param {Function} fback 
-     */
-    function getLastVersion(fback){
-        let req = new XMLHttpRequest();
-        req.onload = function(){
-            const res = req.responseText;
-
-            const p = '[#version]';
-            let nv = res.substring(res.indexOf(p)+p.length);
-            nv = nv.substring(nv.indexOf(p)+p.length);
-            nv = nv.substring(0, nv.indexOf(p));
-            fback({version: nv});
-        }
-        req.onerror = function(){
-            fback({error: true});
-        }
-
-        req.open('GET', window.lazyDatas["updateURL"]);
-        req.send();
-    };
-
-    /**
      * Change animation of lazy block (e for element, a for animation name and r to reload or no the animation)
      * @param {HTMLElement} e 
      * @param {String} a 
@@ -146,8 +128,8 @@ export default function lazyGlobal(){
             threshold: 0
         },
         //version
-        version: "1.1.5",
+        version: "1.1.6",
         //version matcher
-        versionMatcher: "[#version]1.1.5[#version]" 
+        versionMatcher: "[#version]1.1.6[#version]" 
     }
 }

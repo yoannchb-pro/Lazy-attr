@@ -13,11 +13,12 @@ if(window.HTMLCollection && !HTMLCollection.prototype.forEach) {
 //Datas
 window.lazyDatas = {
     isIE: !!document.documentMode,
-    updateURL: "https://unpkg.com/lazy-attr@latest/lib/lazy-attr.min.js",
+    updateURL: "https://unpkg.com/lazy-attr@latest/dist/lazy-attr.min.js",
     originalObserver: true
 };
 
 //Locked methods
+//Global methods of lazy
 window.lazy = lazyGlobal;
 
 //Create IntersectionObserver for old version of navigator

@@ -1,13 +1,15 @@
 {
   "name": "lazy-attr",
-  "version": "1.1.5",
-  "description": "Make a lazy page with lazy video, embed, image and animations on scrolling supported by IE.",
-  "main": "./lib/lazy-attr.js",
+  "version": "1.1.6",
+  "description": "Make a lazy page with lazy video, iframe, image and animations on scrolling supported by IE.",
+  "main": "./dist/lazy-attr.min.js",
   "scripts": {
-    "dev": "npm run build && npm run min-js && npm run prefixer && npm run min-css",
+    "dev": "npm run build && npm run min-js && npm run min-esm-js && npm run min-cjs-js && npm run prefixer && npm run min-css",
     "build": "rollup --config rollup.config.js",
     "prefixer": "autoprefixer-cli -o ./dist/lazy-attr-animation.css ./src/css/lazy-attr-animation.css",
     "min-js": "minify ./dist/lazy-attr.js > ./dist/lazy-attr.min.js",
+    "min-esm-js": "minify ./dist/lazy-attr.esm.js > ./dist/lazy-attr.esm.min.js",
+    "min-cjs-js": "minify ./dist/lazy-attr.cjs.js > ./dist/lazy-attr.cjs.min.js",
     "min-css": "minify ./dist/lazy-attr-animation.css > ./dist/lazy-attr-animation.min.css"
   },
   "homepage": "https://yoannchb-pro.github.io/Lazy-attr/index.html",
@@ -21,19 +23,29 @@
     "lazy-attr",
     "embed",
     "image",
+    "picture",
     "video",
     "js",
     "css",
     "attributes",
     "animations",
-    "yoannchb"
+    "yoannchb",
+    "vue",
+    "vuejs",
+    "react",
+    "angular",
+    "node",
+    "npm"
   ],
   "author": "yoannchb",
   "license": "MIT",
   "devDependencies": {
+    "@babel/preset-env": "^7.12.13",
     "@rollup/plugin-babel": "^5.2.2"
   },
   "dependencies": {
-    "@babel/core": "^7.12.10"
+    "@babel/core": "^7.12.10",
+    "@rollup/plugin-node-resolve": "^11.1.1",
+    "babel-preset-env": "^1.7.0"
   }
 }

@@ -1,10 +1,11 @@
 export default function IntersectionObserverPolyfill(callback, options){
     this.callback = callback;
     this.elements = [];
-    this.options = options;
+    this.options = options; //useless
+
     window.lazyDatas.originalObserver = false;
 
-    function init(){
+    function initObs(){
         const obj = this;
         function listener(){
             const entries = [];
@@ -28,7 +29,9 @@ export default function IntersectionObserverPolyfill(callback, options){
                 requestAnimationFrameSetup(loopDomChangement);
             })();
         } else {
-            console.error('Lazy-attr : your browser do not requestAnimationFrame');
+
+            //If not requestAnimationFrame
+            setInterval(listener, 200);
         }
     }
 
@@ -47,9 +50,9 @@ export default function IntersectionObserverPolyfill(callback, options){
         }
     }
     
-    this.init = init;
+    this.initObs = initObs;
     this.observe = observe;
     this.unobserve = unobserve;
     
-    this.init();
+    this.initObs();
 }

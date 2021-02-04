@@ -10,7 +10,10 @@ const lazyParameters = [
     "[lazy-animation-function]",
     "[lazy-animation-count]",
     "[lazy-callback]",
-    "[lazy-srcset]"
+    "[lazy-srcset]",
+    "[lazy-poster]",
+    "[lazy-size-width]",
+    "[lazy-size-height]",
 ];
 
 export default lazyParameters;
