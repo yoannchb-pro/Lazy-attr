@@ -1,6 +1,6 @@
 {
   "name": "lazy-attr",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Create lazy image, iframe, video... Make custom animation on lazy and not lazy element on all browser. You can also use our animations included in the lib. All of that just with html attributes.",
   "main": "./dist/lazy-attr.min.js",
   "scripts": {
