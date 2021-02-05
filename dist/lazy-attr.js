@@ -331,7 +331,7 @@
                   removeUselessAttributes(target, element); //Delete lazy-attr attributes
 
                   window.lazy().parameters.forEach(function (param) {
-                    param = param.replace(/(\[||\])/gi, "");
+                    param = param.replace(/(\[|\])/gi, "");
                     target.removeAttribute(param);
                   });
                 });
