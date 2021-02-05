@@ -3,7 +3,7 @@ body,html{
     padding: 0;
 }
 
-p, span, code, h1{
+p, span, code, h1, h2, h3{
     font-family: Arial;
 }
 
@@ -19,7 +19,7 @@ header{
     padding: 0.5em;
 }
 
-header h1{
+header h2{
     margin: 0;
     color: #999999;
 }
@@ -100,7 +100,7 @@ footer{
 }
 
 .col-code{
-    height: 27em;
+    height: 35em;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;

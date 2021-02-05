@@ -23,6 +23,7 @@ export default function IntersectionObserverPolyfill(callback, options){
         this.listener = listener;
 
         const requestAnimationFrameSetup = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+
         if(requestAnimationFrameSetup){
             (function loopDomChangement(){
                 listener();
@@ -31,7 +32,7 @@ export default function IntersectionObserverPolyfill(callback, options){
         } else {
 
             //If not requestAnimationFrame
-            setInterval(listener, 200);
+            setInterval(listener, 100);
         }
     }
 

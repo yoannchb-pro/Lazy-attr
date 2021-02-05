@@ -34,7 +34,7 @@
           })();
         } else {
           //If not requestAnimationFrame
-          setInterval(listener, 200);
+          setInterval(listener, 100);
         }
       }
 
@@ -211,9 +211,9 @@
           threshold: 0
         },
         //version
-        version: "1.1.6",
+        version: "1.1.7",
         //version matcher
-        versionMatcher: "[#version]1.1.6[#version]"
+        versionMatcher: "[#version]1.1.7[#version]"
       };
     }
 
@@ -331,7 +331,7 @@
                   removeUselessAttributes(target, element); //Delete lazy-attr attributes
 
                   window.lazy().parameters.forEach(function (param) {
-                    param = param.replace(/\[/gi, "").replace(/\]/gi, "");
+                    param = param.replace(/(\[||\])/gi, "");
                     target.removeAttribute(param);
                   });
                 });
@@ -497,8 +497,8 @@
         //Observer
         var observer = new IntersectionObserver(callback, window.lazy().options);
         window.lazyDatas["observer"] = observer;
-        document.addEventListener("DOMNodeInserted", getLazyObject);
-        document.addEventListener("change", getLazyObject);
+        document.addEventListener("DOMNodeInserted", getLazyObject); //document.addEventListener("change", getLazyObject);
+
         getLazyObject(); //Info
 
         displayInfo('version ' + window.lazy().version);

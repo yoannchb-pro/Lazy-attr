@@ -16,7 +16,7 @@
     <title>Lazy-attr || Lazy page and Animations</title>
 
     <!-- LIB css + js-->
-    <script src="./dist/lazy-attr.min.js" async></script>
+    <script src="./dist/lazy-attr.min.js" type="text/javascript"></script>
     <link href="./dist/lazy-attr-animation.min.css" rel="stylesheet"/>
 
 
@@ -31,7 +31,7 @@
 <body>
     <header>
         <a href="https://github.com/yoannchb-pro/Lazy-attr" style="text-decoration: none;">
-            <h1 lazy-animation="slide-left-animation" id="title">❤️&nbsp;Lazy-attr.js</h1>
+            <h2 lazy-animation="slide-left-animation" id="title">❤️&nbsp;Lazy-attr.js</h2>
         </a>
     </header>
     
@@ -241,26 +241,24 @@
 </script>
 <!-- CODE -->
 <script>
-    window.addEventListener('load', function(){
-        let v = window.lazy().version;
-        document.querySelector('#title').innerHTML += " v" + v;
+    let v = window.lazy().version;
+    document.querySelector('#title').innerHTML += " v" + v;
 
-        function toCodeHtml(t){
-            return t.replace(/\</gi, "&lt;")
+    function toCodeHtml(t){
+        return t.replace(/\</gi, "&lt;")
             .replace(/\>/gi, "&gt;")
             .replace(/\[str\]/gi, "<span class='html-str'>")
             .replace(/\[end-str\]/gi, "</span>")
             .replace(/\[attr\]/gi, "<span class='html-attr'>")
             .replace(/\[end-attr\]/gi, "</span>")
             .split('[separate]');
-        }
+    }
 
-        document.querySelector('#code-script').innerHTML = toCodeHtml('<script [attr]src[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/dist/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str] [attr]async[end-attr]><\/script>');
-        document.querySelector('#code-link').innerHTML = toCodeHtml('<link [attr]href[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/dist/lazy-attr-animation.min.css"[end-str] [attr]rel[end-attr]=[str]"stylesheet"[end-str]/>');;
+    document.querySelector('#code-script').innerHTML = toCodeHtml('<script [attr]src[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/dist/lazy-attr.min.js"[end-str] [attr]type[end-attr]=[str]"text/javascript"[end-str]><\/script>');
+    document.querySelector('#code-link').innerHTML = toCodeHtml('<link [attr]href[end-attr]=[str]"https://unpkg.com/lazy-attr@' + v + '/dist/lazy-attr-animation.min.css"[end-str] [attr]rel[end-attr]=[str]"stylesheet"[end-str]/>');;
 
-        document.querySelector('#attr-script').innerHTML = "<u>Attribute(s):</u> " + window.lazy().parameters.join(", ");
-        document.querySelector('#attr-script').innerHTML += "<span style='display: block'><u>Global:</u> window.lazy()</span>";
-    });
+    document.querySelector('#attr-script').innerHTML = "<u>Attribute(s):</u> window.lazy().parameters";
+    document.querySelector('#attr-script').innerHTML += "<span style='display: block'><u>Global:</u> window.lazy()</span>";
 </script>
 <!-- ANIMATION LIST -->
 <script>

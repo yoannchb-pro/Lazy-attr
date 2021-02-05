@@ -110,7 +110,7 @@ export default function lazyMain(){
 
                             //Delete lazy-attr attributes
                             window.lazy().parameters.forEach(function(param){
-                                param = param.replace(/\[/gi, "").replace(/\]/gi, "");
+                                param = param.replace(/(\[||\])/gi, "");
                                 target.removeAttribute(param);
                             });
                         });
@@ -286,7 +286,7 @@ export default function lazyMain(){
             });
         }
         document.addEventListener("DOMNodeInserted", getLazyObject);
-        document.addEventListener("change", getLazyObject);
+        //document.addEventListener("change", getLazyObject);
         getLazyObject();
 
         //Info
