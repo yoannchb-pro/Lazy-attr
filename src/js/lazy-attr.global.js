@@ -128,8 +128,8 @@ export default function lazyGlobal(){
             threshold: 0
         },
         //version
-        version: "1.1.7",
+        version: "1.1.8",
         //version matcher
-        versionMatcher: "[#version]1.1.7[#version]" 
+        versionMatcher: "[#version]1.1.8[#version]" 
     }
 }

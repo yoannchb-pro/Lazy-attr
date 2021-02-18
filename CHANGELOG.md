@@ -2,6 +2,11 @@
 
 Changelog started on 1.1.6 because the first version was in beta
 
+## 1.1.8
+- BUGS correction
+- Skeleton class added `lazy-skeleton`, `lazy-skeleton-corner` and `lazy-skeleton-top`
+- `lazy-background` added to make lazy background
+
 ## 1.1.7
 - BUGS correction from last version
 

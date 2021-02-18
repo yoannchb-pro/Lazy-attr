@@ -82,7 +82,7 @@ function getUpdateLazyAttr(callback) {
   req.send();
 }
 
-var lazyParameters = ["[lazy-reset]", "[lazy-animation]", "[lazy-animation-time]", "[lazy-animation-delay]", "[lazy-src]", "[lazy-video]", "[lazy-embed]", "[lazy-animation-pointer]", "[lazy-animation-function]", "[lazy-animation-count]", "[lazy-callback]", "[lazy-srcset]", "[lazy-poster]", "[lazy-size-width]", "[lazy-size-height]"];
+var lazyParameters = ["[lazy-reset]", "[lazy-animation]", "[lazy-animation-time]", "[lazy-animation-delay]", "[lazy-src]", "[lazy-video]", "[lazy-embed]", "[lazy-animation-pointer]", "[lazy-animation-function]", "[lazy-animation-count]", "[lazy-callback]", "[lazy-srcset]", "[lazy-poster]", "[lazy-size-width]", "[lazy-size-height]", "[lazy-background]"];
 
 var lazyAnimations = ["zoomin", "zoomout", "opacity", "slide-left", "slide-right", "slide-bottom", "slide-top", "corner-top-left", "corner-top-right", "corner-bottom-left", "corner-bottom-right", "shake", "rotate", "blur", "flip", "flip-up"];
 
@@ -206,9 +206,9 @@ function lazyGlobal() {
       threshold: 0
     },
     //version
-    version: "1.1.7",
+    version: "1.1.8",
     //version matcher
-    versionMatcher: "[#version]1.1.7[#version]"
+    versionMatcher: "[#version]1.1.8[#version]"
   };
 }
 
@@ -367,7 +367,7 @@ function lazyMain() {
 
         var loadedFunction = function loadedFunction() {
           var callbackFunction = target.getAttribute('lazy-callback');
-          if (callbackFunction) window[callbackFunction]();
+          if (callbackFunction) window[callbackFunction](target);
         }; //Set class on lazy element
 
 
@@ -391,9 +391,26 @@ function lazyMain() {
           });
         };
 
-        if (loaded || !target.getAttribute("lazy-src")) {
+        if (loaded || !target.getAttribute("lazy-src") && !target.getAttribute('lazy-srcset') && !target.getAttribute('lazy-background')) {
           loadedFunction();
           startAnimation();
+        } else if (target.getAttribute('lazy-background')) {
+          //Lazy-background
+          var srcBackground = target.getAttribute('lazy-background');
+
+          if (srcBackground) {
+            var cacheImg = new Image();
+            cacheImg.src = srcBackground;
+            cacheImg.addEventListener('error', function () {
+              startAnimation();
+              displayError("cannot load url " + target.src);
+            });
+            cacheImg.addEventListener('load', function () {
+              target.style.backgroundImage = "url('" + cacheImg.src + "')";
+              loadedFunction();
+              startAnimation();
+            });
+          }
         } else {
           target.addEventListener('error', function () {
             startAnimation();
@@ -440,6 +457,8 @@ function lazyMain() {
         target.removeAttribute('lazy-poster');
         target.removeAttribute('lazy-video');
         target.removeAttribute('lazy-src');
+        target.removeAttribute('lazy-srcset');
+        target.removeAttribute('lazy-background');
 
         if (target.getAttribute('lazy-reset') === null) {
           //Used to reload animation on scroll

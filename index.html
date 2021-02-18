@@ -147,6 +147,11 @@
                     <strong id="video_stat">Video loading ...</strong>
                     Example of a video in lazy mode without preload and a poster. Lazy-video make the video in not preload mode and put a poster.
                     <code>lazy-video="https://picsum.photos/560/315?random=10" lazy-src="./assets/flower.mp4" lazy-callback="loaded"</code>
+                    <code>    
+                    const loaded = (target) => {
+                        document.querySelector('#video_stat').innerHTML = target.tagName + " loaded !";
+                    }
+                    </code>
                 </p>
             </div>
         </div>
@@ -171,6 +176,23 @@
                  lazy-animation="zoomin-animation" lazy-reset/>
                 <img lazy-animation-delay="1.2" alt="Random image" lazy-src="https://picsum.photos/300/300?random=8"
                  lazy-animation="zoomin-animation" lazy-reset/>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <div style="margin: 1em; width: 20em; height: 20em; background-size: cover; background-position: center;" 
+                lazy-animation="opacity-animation"
+                 lazy-background="https://picsum.photos/300/300?random=20"></div>
+            </div>
+        </div>
+        <div class="row b1">
+            <div class="col">
+                <p>
+                    Make a lazy background just with lazy-background and the src !
+                    <code>lazy-animation="opacity-animation"
+                        lazy-background="https://picsum.photos/300/300?random=20"</code>
+                </p>
             </div>
         </div>
         <hr>
@@ -199,6 +221,29 @@
                   lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
                   <img lazy-animation-delay="0.9" alt="Random image" lazy-src="https://picsum.photos/300/300?random=7"
                    lazy-animation="opacity-animation" lazy-size-width="300px" lazy-size-height="300px"/>
+            </div>
+        </div>
+        <hr>
+        <!-- Skeleton example -->
+        <div class="row">
+            <div class="col">
+                <div class="lazy-skeleton skeleton-card"></div>
+            </div>
+            <div class="col">
+                <div class="lazy-skeleton-corner skeleton-card"></div>
+            </div>
+            <div class="col">
+                <div class="lazy-skeleton-top skeleton-card"></div>
+            </div>
+        </div>
+        <div class="row b1">
+            <div class="col">
+                <p>
+                    Allows you to make skeleton loading animation just with a class.
+                    <br>Dont forget width and height !
+                    <br>Do not work on image so set up on the parent.
+                    <code>class="lazy-skeleton" class="lazy-skeleton-corner" class="lazy-skeleton-top"</code>
+                </p>
             </div>
         </div>
         <hr>
@@ -235,8 +280,8 @@
 </body>
 <!-- LOADED VIDEO -->
 <script>
-    function loaded(){
-        document.querySelector('#video_stat').innerHTML = "Video loaded !";
+    function loaded(target){
+        document.querySelector('#video_stat').innerHTML = target.tagName + " loaded !";
     }
 </script>
 <!-- CODE -->

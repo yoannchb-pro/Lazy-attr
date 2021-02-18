@@ -154,7 +154,7 @@ export default function lazyMain(){
                 //Call callback function
                 const loadedFunction = () => {
                     const callbackFunction = target.getAttribute('lazy-callback');
-                    if(callbackFunction) window[callbackFunction]();
+                    if(callbackFunction) window[callbackFunction](target);
                 }
 
                 //Set class on lazy element
@@ -176,12 +176,28 @@ export default function lazyMain(){
                     });
                 }
 
-                if(loaded || !target.getAttribute("lazy-src")) {
+                if(loaded || (!target.getAttribute("lazy-src") && !target.getAttribute('lazy-srcset') && !target.getAttribute('lazy-background'))) {
 
                     loadedFunction();
                     startAnimation();
 
-                 } else {
+                } else if(target.getAttribute('lazy-background')){
+                    //Lazy-background
+                    const srcBackground = target.getAttribute('lazy-background');
+                    if(srcBackground) {
+                        const cacheImg = new Image();
+                        cacheImg.src = srcBackground;
+                        cacheImg.addEventListener('error', function(){
+                            startAnimation();
+                            displayError("cannot load url " + target.src);
+                        });
+                        cacheImg.addEventListener('load', () => {
+                            target.style.backgroundImage = "url('" + cacheImg.src + "')";
+                            loadedFunction();
+                            startAnimation();
+                        });
+                    }
+                } else {
 
                     target.addEventListener('error', function(){
                         startAnimation();
@@ -233,6 +249,8 @@ export default function lazyMain(){
                 target.removeAttribute('lazy-poster');
                 target.removeAttribute('lazy-video');
                 target.removeAttribute('lazy-src');
+                target.removeAttribute('lazy-srcset');
+                target.removeAttribute('lazy-background');
 
                 if(target.getAttribute('lazy-reset') === null){ //Used to reload animation on scroll
                     observer.unobserve(target); //Stop observation

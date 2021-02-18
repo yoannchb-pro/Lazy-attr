@@ -204,11 +204,22 @@ footer{
     text-align: center;
 }
 
+.skeleton-card{
+    margin: 1em;
+    width: calc((100vw / 3) - 3em);
+    height: calc((100vw / 3) - 3em);
+}
+
 @media (max-width: 640px) {
     .row{
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
             -ms-flex-direction: column;
                 flex-direction: column;
+    }
+
+    .skeleton-card{
+        width: calc(100vw - 2em);
+        height: calc(100vw - 2em);
     }
   }

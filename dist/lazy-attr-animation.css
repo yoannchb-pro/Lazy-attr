@@ -1,7 +1,76 @@
 /**
 * https://github.com/yoannchb-pro/Lazy-attr
-* VERSION: 1.1.7
+* VERSION: 1.1.8
 */
+
+/*SKELETON*/
+.lazy-skeleton, .lazy-skeleton-corner, .lazy-skeleton-top{
+    position: relative;
+    background-color: rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+.lazy-skeleton::before{
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    box-shadow: 0 0 2.5em 2.5em rgba(255,255,255,0.4);
+    width: 0;
+    height: 100%;
+    animation: skeleton-animation 1s linear infinite;
+}
+
+.lazy-skeleton-corner::before{
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    box-shadow: 0 0 2.5em 2.5em rgba(255,255,255,0.4);
+    width: 0;
+    height: 200%;
+    transform: rotate(45deg);
+    animation: skeleton-animation-corner 1s linear infinite;
+}
+
+.lazy-skeleton-top::before{
+    content: '';
+    display: block;
+    position: absolute;
+    box-shadow: 0 0 2.5em 2.5em rgba(255,255,255,0.4);
+    width: 100%;
+    height: 0;
+    animation: skeleton-animation-top 1s linear infinite;
+}
+
+@keyframes skeleton-animation{
+    0% {
+        left: -10em;
+    }
+    100%{
+        left: calc(100% + 10em);
+    }
+}
+
+@keyframes skeleton-animation-top{
+    0% {
+        bottom: calc(100% + 10em);
+    }
+    100%{
+        bottom: -10em;
+    }
+}
+
+@keyframes skeleton-animation-corner{
+    0% {
+        bottom: 100%;
+        left: -10em;
+    }
+    100%{
+        bottom: -100%;
+        left: calc(100% + 10em);
+    }
+}
 
 /*CLASSES*/
 .slide-bottom-animation, .slide-left-animation, .slide-right-animation, .slide-top-animation, .blur-animation, .corner-top-left-animation,

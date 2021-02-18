@@ -14,6 +14,7 @@ const lazyParameters = [
     "[lazy-poster]",
     "[lazy-size-width]",
     "[lazy-size-height]",
+    "[lazy-background]"
 ];
 
 export default lazyParameters;
