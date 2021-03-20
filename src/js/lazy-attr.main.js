@@ -129,11 +129,13 @@ export default function lazyMain(){
                 const animationClass = target.getAttribute('lazy-animation');
                 const pointer = target.getAttribute('lazy-animation-pointer');
 
-                if(pointer && animationClass){
+                if(pointer){
                     const pointers = document.querySelectorAll(pointer);
                     pointers.forEach(function(pointer){
-                        setAnimation(pointer, animationClass); //set animation
-                        animationState(pointer, "paused");
+                        if (animationClass){
+                            setAnimation(pointer, animationClass); //set animation
+                            animationState(pointer, "paused");
+                        }
                         targetAnimation.push(pointer);
                     });
                 } else {
@@ -141,8 +143,8 @@ export default function lazyMain(){
                     if(animationClass){
                         setAnimation(target, animationClass); //set animation
                         animationState(target, "paused");
-                        targetAnimation.push(target);
                     }
+                    targetAnimation.push(target);
 
                 }
 
@@ -173,6 +175,8 @@ export default function lazyMain(){
                     targetAnimation.forEach(function(el){
                         setClassLazy(el);
                         animationState(el, "running");
+                        //remove skeleton animation
+                        window.lazy().skeletons.forEach(className => el.classList.remove(className));
                     });
                 }
 

@@ -179,18 +179,32 @@
             </div>
         </div>
         <hr>
+        <!-- Lazy background -->
         <div class="row">
             <div class="col">
-                <div style="margin: 1em; width: 20em; height: 20em; background-size: cover; background-position: center;" 
-                lazy-animation="opacity-animation"
-                 lazy-background="https://picsum.photos/300/300?random=20"></div>
+                <div class="card">
+                    <div style="width: 300px; height: 200px; background-size: cover; background-position: center;" 
+                    lazy-background="https://picsum.photos/300/300?random=20"
+                    class="lazy-skeleton"></div>
+
+                    <div class="card-content" style="flex-direction: column">
+                        <div style="display :flex">
+                            <p class="lazy-skeleton" style="height: 1em; width: 7.5em; margin: 1em; margin-right: 10.4em"></p>
+                        </div>
+
+                        <p class="lazy-skeleton" style="height: 1em; width: 275px; margin: 0.5em"></p>
+                        <p class="lazy-skeleton" style="height: 1em; width: 275px; margin: 0.5em"></p>
+                        <p class="lazy-skeleton" style="height: 1em; width: 275px; margin: 0.5em"></p>
+                        <p class="lazy-skeleton" style="height: 1em; width: 275px; margin: 0.5em"></p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row b1">
             <div class="col">
                 <p>
                     Make a lazy background just with lazy-background and the src !
-                    <code>lazy-animation="opacity-animation"
+                    <code>class="lazy-skeleton"
                         lazy-background="https://picsum.photos/300/300?random=20"</code>
                 </p>
             </div>
@@ -250,9 +264,9 @@
         <!-- Animation examples -->
         <div class="row">
             <div class="col">
-                <div class="card">
+                <div class="card" id="card">
                     <img id="toanimate" lazy-reset lazy-src="https://picsum.photos/300/200?random=9" 
-                    lazy-animation="corner-top-right-animation" lazy-animation-pointer=".card">
+                    lazy-animation="corner-top-right-animation" lazy-animation-pointer="#card">
                     <div class="card-content">
                         <p>Card</p>
                     </div>

@@ -207,10 +207,12 @@ function lazyGlobal() {
       rootMargin: "0px",
       threshold: 0
     },
+    //skeletons animations
+    skeletons: ["lazy-skeleton", "lazy-skeleton-corner", "lazy-skeleton-top"],
     //version
-    version: "1.1.8",
+    version: "1.1.9",
     //version matcher
-    versionMatcher: "[#version]1.1.8[#version]"
+    versionMatcher: "[#version]1.1.9[#version]"
   };
 }
 
@@ -344,12 +346,15 @@ function lazyMain() {
         var animationClass = target.getAttribute('lazy-animation');
         var pointer = target.getAttribute('lazy-animation-pointer');
 
-        if (pointer && animationClass) {
+        if (pointer) {
           var pointers = document.querySelectorAll(pointer);
           pointers.forEach(function (pointer) {
-            setAnimation(pointer, animationClass); //set animation
+            if (animationClass) {
+              setAnimation(pointer, animationClass); //set animation
 
-            animationState(pointer, "paused");
+              animationState(pointer, "paused");
+            }
+
             targetAnimation.push(pointer);
           });
         } else {
@@ -357,8 +362,9 @@ function lazyMain() {
             setAnimation(target, animationClass); //set animation
 
             animationState(target, "paused");
-            targetAnimation.push(target);
           }
+
+          targetAnimation.push(target);
         } //See loaded elements
 
 
@@ -389,7 +395,11 @@ function lazyMain() {
         var startAnimation = function startAnimation() {
           targetAnimation.forEach(function (el) {
             setClassLazy(el);
-            animationState(el, "running");
+            animationState(el, "running"); //remove skeleton animation
+
+            window.lazy().skeletons.forEach(function (className) {
+              return el.classList.remove(className);
+            });
           });
         };
 

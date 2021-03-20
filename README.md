@@ -1,4 +1,4 @@
-# 📖 Lazy-attr v1.1.8
+# 📖 Lazy-attr v1.1.9
 
 [![npm](https://img.shields.io/badge/npm-download-green)](https://www.npmjs.com/package/lazy-attr) [![Download](https://img.shields.io/badge/github-download-gree)](https://github.com/yoannchb-pro/Lazy-attr)
 
@@ -15,8 +15,9 @@ Create lazy image, iframe, video... Make custom animation on lazy and not lazy e
 ---
 
 - BUGS correction
-- Skeleton class added `lazy-skeleton`, `lazy-skeleton-corner` and `lazy-skeleton-top`
-- `lazy-background` added to make lazy background
+- Better animations
+- `lazy-animation-pointer` can now delete the skeleton animation of an element
+- skeletons loader are fixed on phone
 
 ## 📚 Documentation & Demo
 ---
@@ -32,8 +33,8 @@ Create lazy image, iframe, video... Make custom animation on lazy and not lazy e
 - formats : `lazy-attr.min.js`, `lazy-attr.esm.min.js` and `lazy-attr.cjs.min.js`
 ### CDN
 ```html
-<script src="https://unpkg.com/lazy-attr@1.1.8/dist/lazy-attr.min.js" type="text/javascript"></script>
-<link href="https://unpkg.com/lazy-attr@1.1.8/dist/lazy-attr-animation.min.css" rel="stylesheet"/>
+<script src="https://unpkg.com/lazy-attr@1.1.9/dist/lazy-attr.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/lazy-attr@1.1.9/dist/lazy-attr-animation.min.css" rel="stylesheet"/>
 ```
 
 ### From download
@@ -47,6 +48,12 @@ Create lazy image, iframe, video... Make custom animation on lazy and not lazy e
 
 - You can set a class `lazyattr` wich be transform in `lazyloaded` after the element is loaded (work on the pointer and parent)
 - You can make a beatiful skeleton loader with `lazy-skeleton`, `lazy-skeleton-corner` and `lazy-skeleton-top` class
+
+## Skeletons
+---
+
+- To set a skeleton loader on an image pls set it on his parent. After you need to put `lazy-animation-pointer="#parent"` on the image to remove it after load.
+- Set a skeleton loader on a div with `lazy-background` will automatically remove it after load.
 
 ## Attributes
 ---

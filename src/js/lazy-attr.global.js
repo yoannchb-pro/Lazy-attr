@@ -127,9 +127,11 @@ export default function lazyGlobal(){
             rootMargin: "0px",
             threshold: 0
         },
+        //skeletons animations
+        skeletons: ["lazy-skeleton", "lazy-skeleton-corner", "lazy-skeleton-top"],
         //version
-        version: "1.1.8",
+        version: "1.1.9",
         //version matcher
-        versionMatcher: "[#version]1.1.8[#version]" 
+        versionMatcher: "[#version]1.1.9[#version]" 
     }
 }

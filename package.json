@@ -1,16 +1,16 @@
 {
   "name": "lazy-attr",
-  "version": "1.1.8",
-  "description": "Create lazy image, iframe, video... Make custom animation on lazy and not lazy element on all browser. You can also use our animations included in the lib. All of that just with html attributes.",
+  "version": "1.1.9",
+  "description": "Lazy and animation lib. Create lazy image, iframe, video... Make custom animation on lazy and not lazy element on all browser. You can also use our animations included in the lib. All of that just with html attributes.",
   "main": "./dist/lazy-attr.min.js",
   "scripts": {
-    "dev": "npm run build && npm run min-js && npm run min-esm-js && npm run min-cjs-js && npm run prefixer && npm run min-css",
+    "dev": "npm run build && npm run min-js && npm run min-esm-js && npm run min-cjs-js && npm run min-css",
     "build": "rollup --config rollup.config.js",
     "prefixer": "autoprefixer-cli -o ./dist/lazy-attr-animation.css ./src/css/lazy-attr-animation.css",
     "min-js": "minify ./dist/lazy-attr.js > ./dist/lazy-attr.min.js",
     "min-esm-js": "minify ./dist/lazy-attr.esm.js > ./dist/lazy-attr.esm.min.js",
     "min-cjs-js": "minify ./dist/lazy-attr.cjs.js > ./dist/lazy-attr.cjs.min.js",
-    "min-css": "minify ./dist/lazy-attr-animation.css > ./dist/lazy-attr-animation.min.css"
+    "min-css": "minify ./src/css/lazy-attr-animation-prefixed.css > ./dist/lazy-attr-animation.min.css"
   },
   "homepage": "https://yoannchb-pro.github.io/Lazy-attr/index.html",
   "repository": {
