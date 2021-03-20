@@ -6,7 +6,6 @@ Changelog started on 1.1.6 because the first version was in beta
 - BUGS correction
 - Better animations
 - `lazy-animation-pointer` can now delete the skeleton animation of an element
-- skeletons loader are fixed on phone
 
 ## 1.1.8
 - BUGS correction

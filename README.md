@@ -17,7 +17,6 @@ Create lazy image, iframe, video... Make custom animation on lazy and not lazy e
 - BUGS correction
 - Better animations
 - `lazy-animation-pointer` can now delete the skeleton animation of an element
-- skeletons loader are fixed on phone
 
 ## 📚 Documentation & Demo
 ---
@@ -127,4 +126,18 @@ rotate
 blur
 flip
 flip-up
+```
+
+### Create your animation
+```css
+.my-animation-name{
+    opacity: 0;
+    animation: animation-name 1s forwards;
+}
+
+@keyframes animation-name{
+    100%{
+        opacity: 1;
+    }
+}
 ```

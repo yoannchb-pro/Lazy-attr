@@ -112,7 +112,7 @@
 /*CLASSES*/
 .slide-bottom-animation, .slide-left-animation, .slide-right-animation, .slide-top-animation, .blur-animation, .corner-top-left-animation,
 .corner-top-right-animation, .corner-bottom-left-animation, .corner-bottom-right-animation, .opacity-animation, .zoomin-animation, 
-.zoomout-animation{
+.zoomout-animation, .rotate-animation{
     opacity: 0;
 }
 
@@ -580,6 +580,7 @@
 
 @-webkit-keyframes rotate{
     100%{
+        opacity: 1;
         -webkit-transform: rotate(360deg);
                 transform: rotate(360deg);
     }
@@ -587,6 +588,7 @@
 
 @keyframes rotate{
     100%{
+        opacity: 1;
         -webkit-transform: rotate(360deg);
                 transform: rotate(360deg);
     }
