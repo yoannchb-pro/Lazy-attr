@@ -1,11 +1,14 @@
-import IntersectionObserverPolyfill from "./IntersectionOberver.polyfill";
-import lazyGlobal from "./lazy-attr.global";
-import lazyMain from "./lazy-attr.main";
+import styles from "../css/lazy-attr-animation.css"
+
+import IntersectionObserverPolyfill from "./IntersectionOberver.polyfill"
+import lazyGlobal from "./lazy-attr.global"
+import lazyMain from "./lazy-attr.main"
 
 //Foreach creation for IE
 if(window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
-  }
+}
+
 if(window.HTMLCollection && !HTMLCollection.prototype.forEach) {
     HTMLCollection.prototype.forEach = Array.prototype.forEach;
 }
@@ -13,7 +16,6 @@ if(window.HTMLCollection && !HTMLCollection.prototype.forEach) {
 //Datas
 window.lazyDatas = {
     isIE: !!document.documentMode,
-    updateURL: "https://unpkg.com/lazy-attr@latest/dist/lazy-attr.min.js",
     originalObserver: true
 };
 

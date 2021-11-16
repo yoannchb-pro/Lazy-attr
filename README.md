@@ -1,22 +1,27 @@
-# 📖 Lazy-attr v1.1.9
+# 📖 Lazy-attr v1.2.0
 
 [![npm](https://img.shields.io/badge/npm-download-green)](https://www.npmjs.com/package/lazy-attr) [![Download](https://img.shields.io/badge/github-download-gree)](https://github.com/yoannchb-pro/Lazy-attr)
 
 Create lazy image, iframe, video... Make custom animation on lazy and not lazy element on all browser. You can also use our animations included in the lib ([Demo](https://yoannchb-pro.github.io/Lazy-attr/index.html#toanimate)). All of that just with html attributes.
 
+## Browser supported
+
+<img src="./assets/browser.png" alt="supported browser"></img>
+
 ## Example
 ---
 
 ```html
-<img lazy-src="https://picsum.photos/300/300?random=1" lazy-srcset="https://picsum.photos/300/300?random=2 900w" lazy-animation="corner-top-left-animation" lazy-reset>
+<img lazy-src="https://picsum.photos/300/300?random=1" lazy-srcset="https://picsum.photos/300/300?random=2 900w" lazy-animation="corner-top-left" lazy-reset>
 ```
 
 ## 🎉 Update
 ---
 
-- BUGS correction
-- Better animations
-- `lazy-animation-pointer` can now delete the skeleton animation of an element
+- No more .min.js or .min.css
+- No more prefix `-animation` after the animation name
+- Improvement for animations and lazy-attr
+- Node module added
 
 ## 📚 Documentation & Demo
 ---
@@ -29,17 +34,16 @@ Create lazy image, iframe, video... Make custom animation on lazy and not lazy e
 - You just need to import the css file and the js file
 - In browser put it in the \<head>
 - In vue.js you can put it in the public.html file
-- formats : `lazy-attr.min.js`, `lazy-attr.esm.min.js` and `lazy-attr.cjs.min.js`
 ### CDN
 ```html
-<script src="https://unpkg.com/lazy-attr@1.1.9/dist/lazy-attr.min.js" type="text/javascript"></script>
-<link href="https://unpkg.com/lazy-attr@1.1.9/dist/lazy-attr-animation.min.css" rel="stylesheet"/>
+<script src="https://unpkg.com/lazy-attr@1.2.0/dist/lazy-attr.js" type="text/javascript"></script>
+<link href="https://unpkg.com/lazy-attr@1.2.0/dist/lazy-attr-animation.css" rel="stylesheet"/>
 ```
 
 ### From download
 ```html
-<script src="./dist/lazy-attr.min.js" type="text/javascript" async></script>
-<link href="./dist/lazy-attr-animation.min.css" rel="stylesheet"/>
+<script src="./dist/lazy-attr.js" type="text/javascript"></script>
+<link href="./dist/lazy-attr-animation.css" rel="stylesheet"/>
 ```
 
 ## Class
@@ -93,22 +97,20 @@ Create lazy image, iframe, video... Make custom animation on lazy and not lazy e
 | version                  | Get actual version of lazy-attr          |
 | parameters               | Get all possible attributes of lazy-attr |
 | animations               | Get all animation prefix                 |
-| getLastVersion(callback) | Get lastversion of lazy-attr             |
+
 
 ## Animations
 ---
 
 ### How
-- To make an animation you need to use lazy-animation
-- form: prefix-animation
 - [Demo](https://yoannchb-pro.github.io/Lazy-attr/index.html#toanimate)
 
 ### Example
 ```html
-<img lazy-src="..." lazy-srcset="..." lazy-animation="corner-top-left-animation">
+<img lazy-src="..." lazy-srcset="..." lazy-animation="corner-top-left">
 ```
 
-### Prefix animations list
+### Animations list
 ```json
 zoomin
 zoomout
@@ -130,7 +132,7 @@ flip-up
 
 ### Create your animation
 ```css
-.my-animation-name{
+.my-name{
     opacity: 0;
     animation: animation-name 1s forwards;
 }
@@ -139,5 +141,18 @@ flip-up
     100%{
         opacity: 1;
     }
+}
+```
+
+### Modify velocity for prebuild animations
+- Work on scale and slide animations
+- By default it's:
+```css
+:root{
+    --slide-start: 33%;
+    --slide-velocity: 7px;
+
+    --scale-velocity: 0.035;
+    --scale-start: 0.4;
 }
 ```

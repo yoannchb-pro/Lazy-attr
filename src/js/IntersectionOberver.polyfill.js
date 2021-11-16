@@ -36,15 +36,15 @@ export default function IntersectionObserverPolyfill(callback, options){
         }
     }
 
-    function observe(e){
-        if(e) {
-            this.elements.push(e);
+    function observe(element){
+        if(element) {
+            this.elements.push(element);
         }
     }
 
-    function unobserve(e){
-        if(e) {
-            let index = this.elements.indexOf(e);
+    function unobserve(element){
+        if(element) {
+            let index = this.elements.indexOf(element);
             if(index != -1) {
                 this.elements.splice(index, 1);
             }

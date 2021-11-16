@@ -1,7 +1,10 @@
-/**
-* https://github.com/yoannchb-pro/Lazy-attr
-* VERSION: 1.1.9
-*/
+:root{
+    --slide-start: 45%;
+    --slide-velocity: 8px;
+
+    --scale-velocity: 0.035;
+    --scale-start: 0.5;
+}
 
 /*SKELETON*/
 .lazy-skeleton, .lazy-skeleton-corner, .lazy-skeleton-top{
@@ -18,7 +21,7 @@
     box-shadow: 0 0 2.5em 2.5em rgba(255,255,255,0.4);
     width: 0;
     height: 100%;
-    animation: skeleton-animation 1s linear infinite;
+    animation: skeleton 1s linear infinite;
 }
 
 .lazy-skeleton-corner::before{
@@ -30,7 +33,7 @@
     width: 0;
     height: 200%;
     transform: rotate(45deg);
-    animation: skeleton-animation-corner 1s linear infinite;
+    animation: skeleton-corner 1s linear infinite;
 }
 
 .lazy-skeleton-top::before{
@@ -40,10 +43,94 @@
     box-shadow: 0 0 2.5em 2.5em rgba(255,255,255,0.4);
     width: 100%;
     height: 0;
-    animation: skeleton-animation-top 1s linear infinite;
+    animation: skeleton-top 1s linear infinite;
 }
 
-@keyframes skeleton-animation{
+
+
+/*CLASSES*/
+.slide-bottom, .slide-left, .slide-right, .slide-top, .blur, .corner-top-left,
+.corner-top-right, .corner-bottom-left, .corner-bottom-right, .opacity, .zoomin, 
+.zoomout, .rotate{
+    opacity: 0;
+}
+
+.corner-top-left{
+    animation: corner-top-left 1s forwards;
+}
+
+.corner-top-right{
+    animation: corner-top-right 1s forwards;
+}
+
+.corner-bottom-left{
+    animation: corner-bottom-left 1s forwards;
+}
+
+.corner-bottom-right{
+    animation: corner-bottom-right 1s forwards;
+}
+
+.blur{
+    filter: blur(7px);
+    animation: blur 1s forwards;
+}
+
+.flip, .flip-up{
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    perspective: 1200px;
+}
+
+.flip{
+    transform: rotateY(-180deg);
+    animation: flip-left 1s forwards;
+}
+
+.flip-up{
+    transform: rotateX(-180deg);
+    animation: flip-up 1s forwards;
+}
+
+.zoomin{
+    animation: zoomin 1s forwards;
+}
+
+.zoomout{
+    animation: zoomout 1s forwards;
+}
+
+.rotate{
+    transform: rotate(0deg);
+    animation: rotate 1s forwards;
+}
+
+.opacity{
+    animation: opacity 1s forwards;
+}
+
+.slide-left{
+    animation: slide-left 1s forwards;
+}
+
+.slide-right{
+    animation: slide-right 1s forwards;
+}
+
+.slide-top{
+    animation: slide-top 1s forwards;
+}
+
+.slide-bottom{
+    animation: slide-bottom 1s forwards;
+}
+
+.shake{
+    animation: shake 1s;
+}
+
+/*SKELETONS*/
+@keyframes skeleton{
     0% {
         left: -10em;
     }
@@ -52,7 +139,7 @@
     }
 }
 
-@keyframes skeleton-animation-top{
+@keyframes skeleton-top{
     0% {
         bottom: calc(100% + 10em);
     }
@@ -61,7 +148,7 @@
     }
 }
 
-@keyframes skeleton-animation-corner{
+@keyframes skeleton-corner{
     0% {
         bottom: 100%;
         left: -10em;
@@ -72,94 +159,15 @@
     }
 }
 
-/*CLASSES*/
-.slide-bottom-animation, .slide-left-animation, .slide-right-animation, .slide-top-animation, .blur-animation, .corner-top-left-animation,
-.corner-top-right-animation, .corner-bottom-left-animation, .corner-bottom-right-animation, .opacity-animation, .zoomin-animation, 
-.zoomout-animation, .rotate-animation{
-    opacity: 0;
-}
-
-.corner-top-left-animation{
-    animation: corner-top-left 1s forwards;
-}
-
-.corner-top-right-animation{
-    animation: corner-top-right 1s forwards;
-}
-
-.corner-bottom-left-animation{
-    animation: corner-bottom-left 1s forwards;
-}
-
-.corner-bottom-right-animation{
-    animation: corner-bottom-right 1s forwards;
-}
-
-.blur-animation{
-    filter: blur(7px);
-    animation: blur 1s forwards;
-}
-
-.flip-animation, .flip-up-animation{
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-    perspective: 1200px;
-}
-
-.flip-animation{
-    transform: rotateY(-180deg);
-    animation: flip-left 1s forwards;
-}
-
-.flip-up-animation{
-    transform: rotateX(-180deg);
-    animation: flip-up 1s forwards;
-}
-
-.zoomin-animation{
-    animation: zoomin 1s forwards;
-}
-
-.zoomout-animation{
-    animation: zoomout 1s forwards;
-}
-
-.rotate-animation{
-    transform: rotate(0deg);
-    animation: rotate 1s forwards;
-}
-
-.opacity-animation{
-    animation: opacity 1s forwards;
-}
-
-.slide-left-animation{
-    animation: slide-left 1s forwards;
-}
-
-.slide-right-animation{
-    animation: slide-right 1s forwards;
-}
-
-.slide-top-animation{
-    animation: slide-top 1s forwards;
-}
-
-.slide-bottom-animation{
-    animation: slide-bottom 1s forwards;
-}
-
-.shake-animation{
-    animation: shake 1s;
-}
-
 /*KEYFRAMES*/
 @keyframes corner-top-left{
     0%{
-        transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-45%) translateY(-45%);
+        transform: translateX(calc(var(--slide-start) * -1)) translateY(calc(var(--slide-start) * -1));
     }
     50%{
-        transform: translateX(30px) translateY(30px);
+        transform: translateX(8px) translateY(8px);
+        transform: translateX(var(--slide-velocity)) translateY(var(--slide-velocity));
     }
     100%{
         opacity: 1;
@@ -169,10 +177,12 @@
 
 @keyframes corner-top-right{
     0%{
-        transform: translateX(+50%) translateY(-50%);
+        transform: translateX(45%) translateY(-45%);
+        transform: translateX(var(--slide-start)) translateY(calc(var(--slide-start) * -1));
     }
     50%{
-        transform: translateX(-30px) translateY(30px);
+        transform: translateX(-8px) translateY(8px);
+        transform: translateX(calc(var(--slide-velocity) * -1)) translateY(var(--slide-velocity));
     }
     100%{
         opacity: 1;
@@ -182,10 +192,12 @@
 
 @keyframes corner-bottom-left{
     0%{
-        transform: translateX(-50%) translateY(+50%);
+        transform: translateX(-45%) translateY(45%);
+        transform: translateX(calc(var(--slide-start) * -1)) translateY(var(--slide-start));
     }
     50%{
-        transform: translateX(30px) translateY(-30px);
+        transform: translateX(8px) translateY(-8px);
+        transform: translateX(var(--slide-velocity)) translateY(calc(var(--slide-velocity) * -1));
     }
     100%{
         opacity: 1;
@@ -195,10 +207,12 @@
 
 @keyframes corner-bottom-right{
     0%{
-        transform: translateX(+50%) translateY(+50%);
+        transform: translateX(45%) translateY(45%);
+        transform: translateX(var(--slide-start)) translateY(var(--slide-start));
     }
     50%{
-        transform: translateX(-30px) translateY(-30px);
+        transform: translateX(-8px) translateY(-8px);
+        transform: translateX(calc(var(--slide-velocity) * -1)) translateY(calc(var(--slide-velocity) * -1));
     }
     100%{
         opacity: 1;
@@ -227,10 +241,12 @@
 
 @keyframes slide-left{
     0%{
-        transform: translateX(-50%);
+        transform: translateX(-45%);
+        transform: translateX(calc(var(--slide-start) * -1));
     }
     50%{
-        transform: translateX(30px);
+        transform: translateX(8px);
+        transform: translateX(var(--slide-velocity));
     }
     100%{
         opacity: 1;
@@ -240,10 +256,12 @@
 
 @keyframes slide-right{
     0%{
-        transform: translateX(+50%);
+        transform: translateX(45%);
+        transform: translateX(var(--slide-start));
     }
     50%{
-        transform: translateX(-30px);
+        transform: translateX(-8px);
+        transform: translateX(calc(var(--slide-velocity) * -1));
     }
     100%{
         opacity: 1;
@@ -253,10 +271,12 @@
 
 @keyframes slide-top{
     0%{
-        transform: translateY(-50%);
+        transform: translateY(-45%);
+        transform: translateY(calc(var(--slide-start) * -1));
     }
     50%{
-        transform: translateY(30px);
+        transform: translateY(8px);
+        transform: translateY(var(--slide-velocity));
     }
     100%{
         opacity: 1;
@@ -266,10 +286,12 @@
 
 @keyframes slide-bottom{
     0%{
-        transform: translateY(+50%);
+        transform: translateY(45%);
+        transform: translateY(var(--slide-start));
     }
     50%{
-        transform: translateY(-30px);
+        transform: translateY(-8px);
+        transform: translateY(calc(var(--slide-velocity) * -1));
     }
     100%{
         opacity: 1;
@@ -280,9 +302,11 @@
 @keyframes zoomout{
     0%{
         transform: scale(1.5);
+        transform: scale(calc(1 + var(--scale-start)));
     }
     50%{
-        transform: scale(0.85);
+        transform: scale(calc(1 - 0.035));
+        transform: scale(calc(1 - var(--scale-velocity)));
     }
     100%{
         opacity: 1;
@@ -293,9 +317,11 @@
 @keyframes zoomin{
     0%{
         transform: scale(0.5);
+        transform: scale(calc(1 - var(--scale-start)));
     }
     50%{
-        transform: scale(1.15);
+        transform: scale(calc(1 + 0.035));
+        transform: scale(calc(1 + var(--scale-velocity)));
     }
     100%{
         opacity: 1;

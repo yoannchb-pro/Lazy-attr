@@ -1,16 +1,15 @@
 {
   "name": "lazy-attr",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "description": "Lazy and animation lib. Create lazy image, iframe, video... Make custom animation on lazy and not lazy element on all browser. You can also use our animations included in the lib. All of that just with html attributes.",
-  "main": "./dist/lazy-attr.min.js",
+  "main": "dist/lazy-attr.cjs.js",
+  "module": "dist/lazy-attr.esm.js",
+  "browser": "dist/lazy-attr.js",
   "scripts": {
-    "dev": "npm run build && npm run min-js && npm run min-esm-js && npm run min-cjs-js && npm run min-css",
-    "build": "rollup --config rollup.config.js",
-    "prefixer": "autoprefixer-cli -o ./dist/lazy-attr-animation.css ./src/css/lazy-attr-animation.css",
-    "min-js": "minify ./dist/lazy-attr.js > ./dist/lazy-attr.min.js",
-    "min-esm-js": "minify ./dist/lazy-attr.esm.js > ./dist/lazy-attr.esm.min.js",
-    "min-cjs-js": "minify ./dist/lazy-attr.cjs.js > ./dist/lazy-attr.cjs.min.js",
-    "min-css": "minify ./src/css/lazy-attr-animation-prefixed.css > ./dist/lazy-attr-animation.min.css"
+    "build": "rollup --config rollup.config.js"
+  },
+  "bugs": {
+    "url": "https://github.com/yoannchb-pro/lazy-attr/issues"
   },
   "homepage": "https://yoannchb-pro.github.io/Lazy-attr/index.html",
   "repository": {
@@ -42,15 +41,16 @@
   "author": "yoannchb",
   "license": "MIT",
   "devDependencies": {
-    "@babel/preset-env": "^7.12.13",
-    "@rollup/plugin-babel": "^5.2.2"
-  },
-  "dependencies": {
-    "@babel/core": "^7.12.10",
-    "@rollup/plugin-node-resolve": "^11.1.1",
-    "autoprefixer": "^10.2.4",
-    "babel-preset-env": "^1.7.0",
-    "postcss-cli": "^8.3.1",
-    "rollup": "^2.39.0"
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "autoprefixer": "^8.6.5",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
+    "rollup": "^0.58.2",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-postcss": "^1.6.3",
+    "rollup-plugin-uglify": "^3.0.0"
   }
 }

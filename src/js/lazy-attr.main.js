@@ -1,3 +1,6 @@
+import setAnimation from "./lazy-attr.setAnimation";
+import animationState from "./lazy-attr.animation.state";
+
 export default function lazyMain(){
     //Function to display error and info
     function displayInfo(msg){console.info("[INFO] Lazy-attr : " + msg);};
@@ -15,115 +18,6 @@ export default function lazyMain(){
 
             //Intersecting
             if(entry.isIntersecting){
-                /**
-                 * Run or pause animation function
-                 * @param {HTMLElement} element
-                 * @param {String} state
-                 */
-                function animationState(element, state){
-                    element.style.animationPlayState = state;
-                    element.style.webkitAnimationPlayState = state;
-                };
-
-                /**
-                 * used to remove useless attributes on not lazy-reset elements t=target and e=pointer
-                 * @param {HTMLElement} parent
-                 * @param {HTMLElement} pointer
-                 */
-                function removeUselessAttributes(parent, pointer){
-                    const nullAttribute = null;
-                    //remove animation
-                    if(window.lazy()._data['originalObserver']){
-                        const animationName = parent.getAttribute('lazy-animation');
-                        if(animationName) pointer.classList.remove(animationName);
-                    }
-
-                    //remove size
-                    parent.style.minWidth = nullAttribute;
-                    parent.style.minHeight = nullAttribute;
-
-                    //animation running
-                    animationState(pointer, nullAttribute);
-
-                    //animation duration
-                    parent.style.animationDuration = nullAttribute;
-                    parent.style.webkitAnimationDuration = nullAttribute;
-
-                    //animation delay
-                    parent.style.animationDelay = nullAttribute;
-                    parent.style.webkitAnimationDelay = nullAttribute;
-
-                    //animation count
-                    parent.style.animationIterationCount = nullAttribute;
-                    parent.style.webkitAnimationIterationCount = nullAttribute;
-
-                    //animation function
-                    parent.style.animationTimingFunction = nullAttribute;
-                    parent.style.webkitAnimationTimingFunction = nullAttribute;
-                }
-
-                /**
-                 * Set animation parameters
-                 * @param {HTMLElement} element
-                 * @param {String} animationClass 
-                 */
-                function setAnimation(element, animationClass){
-                    //if(!isAnimationStoped(e)) return; //We wait the end of animation
-
-                    //Animation duration
-                    const animationTime = target.getAttribute('lazy-animation-time');
-                    if(animationTime) {
-                        element.style.animationDuration = animationTime + "s";
-                        element.style.webkitAnimationDuration = animationTime + "s";
-                    }
-
-                    //Animation delay
-                    const animationDelay = target.getAttribute('lazy-animation-delay');
-                    if(animationDelay) {
-                        element.style.animationDelay = animationDelay + "s";
-                        element.style.webkitAnimationDelay = animationDelay + "s";
-                    }
-
-                    //Animation count
-                    const animationCount = target.getAttribute('lazy-animation-count');
-                    if(animationCount) {
-                        element.style.animationIterationCount = animationCount;
-                        element.style.webkitAnimationIterationCount = animationCount;
-                    }
-
-                    //Animation function
-                    const animationFunction = target.getAttribute('lazy-animation-function');
-                    if(animationFunction){
-                        element.style.animationTimingFunction = animationFunction;
-                        element.style.webkitAnimationTimingFunction = animationFunction;
-                    }
-
-                    //Set animation class
-                    element.classList.add(animationClass);
-
-                    if(target.getAttribute('lazy-reset') === null){
-
-                        //Delete useless attribute
-                        element.addEventListener('animationend', function(){
-                            //remove all useless attributes
-                            removeUselessAttributes(target, element);
-
-                            //Delete lazy-attr attributes
-                            window.lazy().parameters.forEach(function(param){
-                                param = param.replace(/(\[|\])/gi, "");
-                                target.removeAttribute(param);
-                            });
-                        });
-                    } else {
-
-                        //Delete useless attributes on lazy-reset elements
-                        element.addEventListener('animationend', function(){
-                            //remove all useless attributes
-                            removeUselessAttributes(target, element);
-                        });
-                    }
-                }
-
                 //Animation class
                 const targetAnimation = [];
                 const animationClass = target.getAttribute('lazy-animation');
@@ -133,7 +27,7 @@ export default function lazyMain(){
                     const pointers = document.querySelectorAll(pointer);
                     pointers.forEach(function(pointer){
                         if (animationClass){
-                            setAnimation(pointer, animationClass); //set animation
+                            setAnimation(target, pointer, animationClass); //set animation
                             animationState(pointer, "paused");
                         }
                         targetAnimation.push(pointer);
@@ -141,7 +35,7 @@ export default function lazyMain(){
                 } else {
 
                     if(animationClass){
-                        setAnimation(target, animationClass); //set animation
+                        setAnimation(target, target, animationClass); //set animation
                         animationState(target, "paused");
                     }
                     targetAnimation.push(target);
@@ -154,13 +48,13 @@ export default function lazyMain(){
                 const loaded = loadedImg || loadedVideo;
 
                 //Call callback function
-                const loadedFunction = () => {
+                const loadedFunction = function(){
                     const callbackFunction = target.getAttribute('lazy-callback');
                     if(callbackFunction) window[callbackFunction](target);
                 }
 
                 //Set class on lazy element
-                const setClassLazy = (el) => {
+                const setClassLazy = function(el){
                     const haveClass = el.classList.toString().indexOf('lazyattr') != -1;
                     if(haveClass) {
                         el.classList.remove('lazyattr');
@@ -171,7 +65,7 @@ export default function lazyMain(){
                 /**
                 * Start animation function after load element if it is lazy or not
                 */
-                const startAnimation = () => {
+                const startAnimation = function(){
                     targetAnimation.forEach(function(el){
                         setClassLazy(el);
                         animationState(el, "running");
@@ -186,8 +80,10 @@ export default function lazyMain(){
                     startAnimation();
 
                 } else if(target.getAttribute('lazy-background')){
+
                     //Lazy-background
                     const srcBackground = target.getAttribute('lazy-background');
+
                     if(srcBackground) {
                         const cacheImg = new Image();
                         cacheImg.src = srcBackground;
@@ -233,7 +129,7 @@ export default function lazyMain(){
                     if(!window.lazy()._data['isIE']){
                         let poster = target.getAttribute('lazy-poster'); //Permet de mettre un poster à la vidéo
                         if(poster) poster = "url('" + poster + "')"; else poster = "#000";
-                        target.setAttribute("srcdoc", "<style>body{background: " + poster + "; background-position: center; background-size: cover;}*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='" + code + "'><span>▶</span></a>");
+                        target.setAttribute("srcdoc", "<style>body{background: " + poster + "; background-position: center; background-size: cover;}*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='" + code + "'><span>&#9654;</span></a>");
                     } else {
                         //IE do not support srcdoc
                         target.setAttribute('src', code);
@@ -290,9 +186,7 @@ export default function lazyMain(){
         const observer = new IntersectionObserver(callback, window.lazy().options);
         window.lazyDatas["observer"] = observer;
 
-        /**
-         * Set observer on dom elements
-         */
+        //Set observer on dom elements
         function getLazyObject(){
             document.body.querySelectorAll(window.lazy().parameters.join(',')).forEach(function(el){
                 //Get default width and height
@@ -307,6 +201,7 @@ export default function lazyMain(){
                 observer.observe(el);
             });
         }
+
         document.addEventListener("DOMNodeInserted", getLazyObject);
         //document.addEventListener("change", getLazyObject);
         getLazyObject();
@@ -317,6 +212,6 @@ export default function lazyMain(){
     } else {
 
         //Error
-        displayError('incompatible or verify window.lazy and window.lazyDatas integration');
+        displayError('Incompatible or verify window.lazy and window.lazyDatas integration');
     }
 }

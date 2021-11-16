@@ -1,6 +1,10 @@
 # Changelog
 
-Changelog started on 1.1.6 because the first version was in beta
+## 1.2.0
+- No more .min.js or .min.css
+- No more prefix `-animation` after the animation name
+- Improvement for animations and lazy-attr
+- Node module added
 
 ## 1.1.9
 - BUGS correction
