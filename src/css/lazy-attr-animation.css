@@ -9,7 +9,7 @@
 /*SKELETON*/
 .lazy-skeleton, .lazy-skeleton-corner, .lazy-skeleton-top{
     position: relative;
-    background-color: rgba(0,0,0,0.15);
+    background-color: #adadad;
     overflow: hidden;
 }
 

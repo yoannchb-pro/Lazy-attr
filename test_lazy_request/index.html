@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../dist/lazy-attr.js"></script>
+    <style>
+        body, html{
+            height: 500vh;
+            width: 100%;
+            flex-wrap: wrap;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        div{
+            color: white;
+
+            width: 100%;
+            flex: 1 1 100%;
+            min-height: 100px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #cars{
+            background-color: blue;
+        }
+
+        #cars-reset{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="cars" lazy-observe></div>
+    <div id="cars-reset" lazy-observe lazy-reset></div>
+</body>
+<script>
+document.querySelector('#cars').addEventListener('lazy-loaded', function(event){
+    const target = event.target;
+    target.textContent = "Hey I'm lazy";
+});
+
+document.querySelector('#cars-reset').addEventListener('lazy-loaded', function(event){
+    const target = event.target;
+    target.innerHTML += "<p>Hey I'm lazy but I repeat the action</p>";
+});
+
+document.querySelector('#cars-reset').addEventListener('lazy-quit', function(event){
+    const target = event.target;
+    target.innerHTML += "<p>Why did you quit ?</p>";
+});
+</script>
+</html>

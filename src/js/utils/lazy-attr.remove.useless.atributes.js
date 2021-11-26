@@ -1,11 +1,11 @@
-import animationState from "./lazy-attr.animation.state";
+import animationState from "../animations/lazy-attr.animation.state";
 
 /**
-* used to remove useless attributes on not lazy-reset elements t=target and e=pointer
+* Used to remove useless attributes on not lazy-reset elements like the pointer
 * @param {HTMLElement} parent
 * @param {HTMLElement} pointer
 */
-function removeUselessAttributes(parent, pointer){
+function removeUselessAttributesPointer(parent, pointer){
     const nullAttribute = null;
     //remove animation
     if(window.lazy()._data['originalObserver']){
@@ -33,4 +33,4 @@ function removeUselessAttributes(parent, pointer){
     parent.style.animationTimingFunction = nullAttribute;
 }
 
-export default removeUselessAttributes;
+export default removeUselessAttributesPointer;

@@ -1,0 +1,2 @@
+- OK: callback function with an event 
+- OK: build an object of each attributes

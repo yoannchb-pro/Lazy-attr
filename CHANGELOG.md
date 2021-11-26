@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+- Bugs corrections
+- Improvement
+- No more lazy-callback (now it will dispatch an event named `lazy-loaded` and `lazy-quit`)
+- Added lazy-observe (Do not do anything just observe the element to do lazy request for example)
+
 ## 1.2.0
 - No more .min.js or .min.css
 - No more prefix `-animation` after the animation name

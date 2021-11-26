@@ -1,10 +1,10 @@
-# 📖 Lazy-attr v1.2.0
+# 📖 Lazy-attr v1.2.1
 
 [![npm](https://img.shields.io/badge/npm-download-green)](https://www.npmjs.com/package/lazy-attr) [![Download](https://img.shields.io/badge/github-download-gree)](https://github.com/yoannchb-pro/Lazy-attr)
 
-Create lazy image, iframe, video... Make custom animation on lazy and not lazy element on all browser. You can also use our animations included in the lib ([Demo](https://yoannchb-pro.github.io/Lazy-attr/index.html#toanimate)). All of that just with html attributes.
+Create lazy loading request or element like image, iframe, video... Make custom animation on lazy and not lazy element on all browser. You can also use our animations included in the lib ([Demo](https://yoannchb-pro.github.io/Lazy-attr/index.html#toanimate)). All of that just with html attributes.
 
-## Browser supported
+## All browser supported
 
 <img src="./assets/browser.png" alt="supported browser"></img>
 
@@ -18,10 +18,10 @@ Create lazy image, iframe, video... Make custom animation on lazy and not lazy e
 ## 🎉 Update
 ---
 
-- No more .min.js or .min.css
-- No more prefix `-animation` after the animation name
-- Improvement for animations and lazy-attr
-- Node module added
+- Bugs corrections
+- Improvement
+- No more lazy-callback (now it will dispatch an event named `lazy-loaded` and `lazy-quit`)
+- Added lazy-observe (Do not do anything just observe the element to do lazy request for example)
 
 ## 📚 Documentation & Demo
 ---
@@ -36,14 +36,32 @@ Create lazy image, iframe, video... Make custom animation on lazy and not lazy e
 - In vue.js you can put it in the public.html file
 ### CDN
 ```html
-<script src="https://unpkg.com/lazy-attr@1.2.0/dist/lazy-attr.js" type="text/javascript"></script>
-<link href="https://unpkg.com/lazy-attr@1.2.0/dist/lazy-attr-animation.css" rel="stylesheet"/>
+<script src="https://unpkg.com/lazy-attr@1.2.1/dist/lazy-attr.js" type="text/javascript"></script>
+<link href="https://unpkg.com/lazy-attr@1.2.1/dist/lazy-attr-animation.css" rel="stylesheet"/>
 ```
 
 ### From download
 ```html
 <script src="./dist/lazy-attr.js" type="text/javascript"></script>
 <link href="./dist/lazy-attr-animation.css" rel="stylesheet"/>
+```
+
+## Events
+---
+- `lazy-loaded` When the element is matched
+- `lazy-quit` When the element is not matched
+
+## Lazy request
+---
+- You can add lazy-reset if you want to dispatch the event not just once time
+```html
+<div id="cars" lazy-observe></div>
+```
+```js
+document.querySelector('#cars').addEventListener('lazy-loaded', function(event){
+    const target = event.target;
+    target.textContent = "Hey I'm lazy";
+});
 ```
 
 ## Class
@@ -64,13 +82,13 @@ Create lazy image, iframe, video... Make custom animation on lazy and not lazy e
 ## Image, iframe and video
 |        Parameters        |                                             Usage                                            |
 |:-----------------------:|:--------------------------------------------------------------------------------------------:|
+| lazy-observe            | Just observe the element to do lazy request for example                                      |
 | lazy-reset              | Reset the animation on scroll                                                                |
 | lazy-srcset             | Same as srcset attribute                                                                     |
 | lazy-src                | Image soucre \| iframe source \| video source                                                |
 | lazy-background         | Image source to make a lazy background image                                                 |
 | lazy-size-width         | Minimum width size                                                                           |
 | lazy-size-height        | Minimum height size                                                                          |
-| lazy-callback           | Function name lauched after full load of element                                             |
 | lazy-animation          | Animation to lauch after full load of element                                                |
 | lazy-animation-time     | Animation duration (time in ms)                                                              |
 | lazy-animation-delay    | Animation delay (time in ms)                                                                 |
@@ -96,7 +114,7 @@ Create lazy image, iframe, video... Make custom animation on lazy and not lazy e
 |:------------------------:|:----------------------------------------:|
 | version                  | Get actual version of lazy-attr          |
 | parameters               | Get all possible attributes of lazy-attr |
-| animations               | Get all animation prefix                 |
+| animations               | Get all animations                       |
 
 
 ## Animations

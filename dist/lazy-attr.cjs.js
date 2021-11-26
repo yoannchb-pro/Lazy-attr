@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * A polyfill for the IntersectionObserver object
+ * @param {Function} callback 
+ * @param {Object} options 
+ */
 function IntersectionObserverPolyfill(callback, options) {
   this.callback = callback;
   this.elements = [];
@@ -13,7 +18,7 @@ function IntersectionObserverPolyfill(callback, options) {
     function listener() {
       var entries = [];
       obj.elements.forEach(function (element) {
-        var intersect = window.lazy().isIntersecting(element);
+        var intersect = window.lazy().isIntersectingObserver(element);
         entries.push({
           target: element,
           isIntersecting: intersect
@@ -25,13 +30,14 @@ function IntersectionObserverPolyfill(callback, options) {
     var requestAnimationFrameSetup = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
 
     if (requestAnimationFrameSetup) {
+      //Request animation frame
       (function loopDomChangement() {
         listener();
         requestAnimationFrameSetup(loopDomChangement);
       })();
     } else {
       //If not requestAnimationFrame
-      setInterval(listener, 100);
+      setInterval(listener, 150);
     }
   }
 
@@ -57,15 +63,39 @@ function IntersectionObserverPolyfill(callback, options) {
   this.initObs();
 }
 
-var lazyParameters = ["[lazy-reset]", "[lazy-animation]", "[lazy-animation-time]", "[lazy-animation-delay]", "[lazy-src]", "[lazy-video]", "[lazy-embed]", "[lazy-animation-pointer]", "[lazy-animation-function]", "[lazy-animation-count]", "[lazy-callback]", "[lazy-srcset]", "[lazy-poster]", "[lazy-size-width]", "[lazy-size-height]", "[lazy-background]"];
+/**
+ * All lazy-attr attributes to observe
+ */
+var lazyParameters = {
+  reset: "lazy-reset",
+  animation: "lazy-animation",
+  time: "lazy-animation-time",
+  delay: "lazy-animation-delay",
+  src: "lazy-src",
+  video: "lazy-video",
+  embed: "lazy-embed",
+  pointer: "lazy-animation-pointer",
+  "function": "lazy-animation-function",
+  count: "lazy-animation-count",
+  srcset: "lazy-srcset",
+  poster: "lazy-poster",
+  width: "lazy-size-width",
+  height: "lazy-size-height",
+  background: "lazy-background",
+  observe: "lazy-observe" //Do not do anything (just to observe an element to make lazy request for example)
 
+};
+
+/**
+ * All animations list
+ */
 var lazyAnimations = ["zoomin", "zoomout", "opacity", "slide-left", "slide-right", "slide-bottom", "slide-top", "corner-top-left", "corner-top-right", "corner-bottom-left", "corner-bottom-right", "shake", "rotate", "blur", "flip", "flip-up"];
 
 /**
 * See object intersecting for polyfill
 * @param {HTMLElement} element 
 */
-function isIntersecting(element) {
+function isIntersectingObserver(element) {
   var width = window.innerWidth;
   var height = window.innerHeight;
   var pos = element.getBoundingClientRect();
@@ -112,25 +142,26 @@ function isIntersectingWithoutTransform(el) {
 }
 
 var intersecting = {
-  isIntersecting: isIntersecting,
+  isIntersectingObserver: isIntersectingObserver,
   isIntersectingWithoutTransform: isIntersectingWithoutTransform
 };
 
 /**
- * Change animation of lazy block (e for element, a for animation name and r to reload or no the animation)
- * @param {HTMLElement} e 
- * @param {String} a 
- * @param {Boolean} r 
+ * Change animation of lazy-attr element
+ * @param {HTMLElement} element
+ * @param {String} animationName
+ * @param {Boolean} reload
  */
-function changeAnimation(e, a, r) {
-  var reset = e.getAttribute('lazy-reset');
+function changeAnimation(element, animationName) {
+  var reload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+  var reset = element.getAttribute('lazy-reset');
   reset = reset != null && reset != undefined ? true : false;
 
   if (reset) {
-    var backAnimation = e.getAttribute('lazy-animation');
+    var backAnimation = element.getAttribute('lazy-animation');
 
-    if (backAnimation && a) {
-      var pointer = e.getAttribute('lazy-animation-pointer');
+    if (backAnimation && animationName) {
+      var pointer = element.getAttribute('lazy-animation-pointer');
 
       if (pointer) {
         //with pointer
@@ -139,23 +170,28 @@ function changeAnimation(e, a, r) {
         });
       } else {
         //no pointer
-        e.classList.remove(backAnimation);
+        element.classList.remove(backAnimation);
       }
 
-      e.removeAttribute('lazy-animation');
+      element.removeAttribute('lazy-animation');
     }
 
-    e.setAttribute('lazy-animation', a); //Reload animation
+    element.setAttribute('lazy-animation', animationName); //Reload animation
 
-    if (r) {
-      window.lazy()._data["observer"].unobserve(e);
+    if (reload) {
+      window.lazy()._data["observer"].unobserve(element);
 
-      window.lazy()._data["observer"].observe(e);
+      window.lazy()._data["observer"].observe(element);
     }
   } else {
     console.warn('Lazy-attr : Cannot change animation of not lazy-reset element !');
   }
 }
+
+/**
+ * Global lazy-attr methods and datas
+ * @returns data Object
+ */
 
 function lazyGlobal() {
   return {
@@ -163,7 +199,7 @@ function lazyGlobal() {
     _data: window.lazyDatas,
     //methods
     changeAnimation: changeAnimation,
-    isIntersecting: intersecting.isIntersecting,
+    isIntersectingObserver: intersecting.isIntersectingObserver,
     isIntersectingWithoutTransform: intersecting.isIntersectingWithoutTransform,
     //search attributes parameters for observer
     parameters: lazyParameters,
@@ -178,8 +214,67 @@ function lazyGlobal() {
     //skeletons animations
     skeletons: ["lazy-skeleton", "lazy-skeleton-corner", "lazy-skeleton-top"],
     //version
-    version: "1.2.0"
+    version: "1.2.1"
   };
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 /**
@@ -192,12 +287,12 @@ function animationState(element, state) {
 }
 
 /**
-* used to remove useless attributes on not lazy-reset elements t=target and e=pointer
+* Used to remove useless attributes on not lazy-reset elements like the pointer
 * @param {HTMLElement} parent
 * @param {HTMLElement} pointer
 */
 
-function removeUselessAttributes(parent, pointer) {
+function removeUselessAttributesPointer(parent, pointer) {
   var nullAttribute = null; //remove animation
 
   if (window.lazy()._data['originalObserver']) {
@@ -221,60 +316,62 @@ function removeUselessAttributes(parent, pointer) {
 }
 
 /**
-* Set animation parameters
-* @param {HTMLElement} element
-* @param {String} animationClass 
-*/
+ * Set animation parameters
+ * @param {Object} config 
+ */
 
-function setAnimation(target, element, animationClass) {
-  //if(!isAnimationStoped(e)) return; //We wait the end of animation
+function setAnimation(config) {
+  var elementToAnimate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var target = config.target;
+  var animationClass = config.animation || '';
+  elementToAnimate = elementToAnimate ? elementToAnimate : config.target; // if(elementToAnimate.style.animationPlayState == "running") return; //We wait the end of animation
   //Animation duration
+
   var animationTime = target.getAttribute('lazy-animation-time');
 
   if (animationTime) {
-    element.style.animationDuration = animationTime + "s";
+    elementToAnimate.style.animationDuration = animationTime + "s";
   } //Animation delay
 
 
   var animationDelay = target.getAttribute('lazy-animation-delay');
 
   if (animationDelay) {
-    element.style.animationDelay = animationDelay + "s";
+    elementToAnimate.style.animationDelay = animationDelay + "s";
   } //Animation count
 
 
   var animationCount = target.getAttribute('lazy-animation-count');
 
   if (animationCount) {
-    element.style.animationIterationCount = animationCount;
+    elementToAnimate.style.animationIterationCount = animationCount;
   } //Animation function
 
 
   var animationFunction = target.getAttribute('lazy-animation-function');
 
   if (animationFunction) {
-    element.style.animationTimingFunction = animationFunction;
+    elementToAnimate.style.animationTimingFunction = animationFunction;
   } //Set animation class
 
 
-  element.classList.add(animationClass);
+  elementToAnimate.classList.add(animationClass);
 
-  if (target.getAttribute('lazy-reset') === null) {
+  if (config.reset === null) {
     //Delete useless attribute
-    element.addEventListener('animationend', function () {
-      //remove all useless attributes
-      removeUselessAttributes(target, element); //Delete lazy-attr attributes
+    elementToAnimate.addEventListener('animationend', function () {
+      //remove all useless attributes for the element to animate (can be the pointer)
+      if (target != elementToAnimate) removeUselessAttributesPointer(target, elementToAnimate); //Delete lazy-attr attributes
 
-      window.lazy().parameters.forEach(function (param) {
-        param = param.replace(/(\[|\])/gi, "");
+      Object.values(window.lazy().parameters).forEach(function (param) {
         target.removeAttribute(param);
       });
     });
   } else {
     //Delete useless attributes on lazy-reset elements
-    element.addEventListener('animationend', function () {
+    elementToAnimate.addEventListener('animationend', function () {
       //remove all useless attributes
-      removeUselessAttributes(target, element);
+      removeUselessAttributesPointer(target, elementToAnimate);
     });
   }
 }
@@ -298,46 +395,43 @@ function lazyMain() {
     //For each elements in the observer
     entries.forEach(function (entry) {
       var target = entry.target; //Element target
-      //Intersecting
+      //Set configuration
+
+      var config = {
+        target: target
+      };
+
+      for (var _i = 0, _Object$entries = Object.entries(window.lazy().parameters); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            key = _Object$entries$_i[0],
+            value = _Object$entries$_i[1];
+
+        config[key] = target.getAttribute(value);
+      }
+      if (config.pointer != null) config.pointer = document.querySelectorAll(config.pointer); //Intersecting
 
       if (entry.isIntersecting) {
-        //Animation class
-        var targetAnimation = [];
-        var animationClass = target.getAttribute('lazy-animation');
-        var pointer = target.getAttribute('lazy-animation-pointer');
-
-        if (pointer) {
-          var pointers = document.querySelectorAll(pointer);
-          pointers.forEach(function (pointer) {
-            if (animationClass) {
-              setAnimation(target, pointer, animationClass); //set animation
+        if (config.pointer) {
+          config.pointer.forEach(function (pointer) {
+            if (config.animation) {
+              setAnimation(config, pointer); //set animation
 
               animationState(pointer, "paused");
             }
-
-            targetAnimation.push(pointer);
           });
         } else {
-          if (animationClass) {
-            setAnimation(target, target, animationClass); //set animation
+          if (config.animation) {
+            setAnimation(config); //set animation
 
             animationState(target, "paused");
           }
-
-          targetAnimation.push(target);
         } //See loaded elements
 
 
         var loadedImg = target.complete && target.naturalHeight !== 0;
         var loadedVideo = target.readyState >= 0; //>=3
 
-        var loaded = loadedImg || loadedVideo; //Call callback function
-
-        var loadedFunction = function loadedFunction() {
-          var callbackFunction = target.getAttribute('lazy-callback');
-          if (callbackFunction) window[callbackFunction](target);
-        }; //Set class on lazy element
-
+        var loaded = loadedImg || loadedVideo; //Set class on lazy element
 
         var setClassLazy = function setClassLazy(el) {
           var haveClass = el.classList.toString().indexOf('lazyattr') != -1;
@@ -353,22 +447,33 @@ function lazyMain() {
 
 
         var startAnimation = function startAnimation() {
-          targetAnimation.forEach(function (el) {
+          if (config.pointer) config.pointer.forEach(function (el) {
             setClassLazy(el);
             animationState(el, "running"); //remove skeleton animation
 
             window.lazy().skeletons.forEach(function (className) {
               return el.classList.remove(className);
             });
-          });
+          });else {
+            setClassLazy(config.target);
+            animationState(config.target, "running");
+            window.lazy().skeletons.forEach(function (className) {
+              return config.target.classList.remove(className);
+            });
+          }
         };
 
-        if (loaded || !target.getAttribute("lazy-src") && !target.getAttribute('lazy-srcset') && !target.getAttribute('lazy-background')) {
-          loadedFunction();
-          startAnimation();
-        } else if (target.getAttribute('lazy-background')) {
+        if (loaded || !config.src && !config.srcset && !config.background) {
+          startAnimation(); //Event handler
+
+          var event = new CustomEvent('lazy-loaded', config);
+          target.dispatchEvent(event);
+          if (config.pointer) config.pointer.forEach(function (e) {
+            return e.dispatchEvent(event);
+          });
+        } else if (config.background) {
           //Lazy-background
-          var srcBackground = target.getAttribute('lazy-background');
+          var srcBackground = config.background;
 
           if (srcBackground) {
             var cacheImg = new Image();
@@ -379,7 +484,6 @@ function lazyMain() {
             });
             cacheImg.addEventListener('load', function () {
               target.style.backgroundImage = "url('" + cacheImg.src + "')";
-              loadedFunction();
               startAnimation();
             });
           }
@@ -390,25 +494,22 @@ function lazyMain() {
           }); //callback function
 
           target.addEventListener('load', function () {
-            loadedFunction(); //start animation after load
-
+            //start animation after load
             startAnimation();
-          }); //callback function video
-
-          target.addEventListener('loadeddata', loadedFunction);
+          });
         } //Lazy video
 
 
-        var srcPoster = target.getAttribute('lazy-video');
+        var srcPoster = config.video;
         if (srcPoster) target.setAttribute("poster", srcPoster);
         target.preload = "none"; //Lazy iframe
 
-        var code = target.getAttribute('lazy-embed');
+        var code = config.embed;
 
         if (code) {
           //If it's not IE
           if (!window.lazy()._data['isIE']) {
-            var poster = target.getAttribute('lazy-poster'); //Permet de mettre un poster à la vidéo
+            var poster = config.poster; //Permet de mettre un poster à la vidéo
 
             if (poster) poster = "url('" + poster + "')";else poster = "#000";
             target.setAttribute("srcdoc", "<style>body{background: " + poster + "; background-position: center; background-size: cover;}*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black}</style><a href='" + code + "'><span>&#9654;</span></a>");
@@ -419,10 +520,10 @@ function lazyMain() {
         } //Lazy src
 
 
-        var srcUrl = target.getAttribute('lazy-src');
+        var srcUrl = config.src;
         if (srcUrl) target.src = srcUrl; //Lazy srcset
 
-        var srcSet = target.getAttribute('lazy-srcset');
+        var srcSet = config.srcset;
         if (srcSet) target.setAttribute('srcset', srcSet); //Remove useless attributes after load
 
         target.removeAttribute('lazy-embed');
@@ -432,11 +533,12 @@ function lazyMain() {
         target.removeAttribute('lazy-srcset');
         target.removeAttribute('lazy-background');
 
-        if (target.getAttribute('lazy-reset') === null) {
+        if (config.reset === null) {
           //Used to reload animation on scroll
+          target.removeAttribute('lazy-observe');
           observer.unobserve(target); //Stop observation
         }
-      } else if (target.getAttribute('lazy-reset') != null && !window.lazy().isIntersectingWithoutTransform(target)) {
+      } else if (config.reset != null && !window.lazy().isIntersectingWithoutTransform(target)) {
         //Reload animation
         //Reset function
         var resetAnimation = function resetAnimation(element, animationClass) {
@@ -445,19 +547,21 @@ function lazyMain() {
         }; //Reset class animation for pointer or target
 
 
-        var _animationClass = target.getAttribute('lazy-animation');
-
-        var havePointer = target.getAttribute('lazy-animation-pointer');
-
-        if (havePointer && _animationClass) {
-          var _pointers = document.querySelectorAll(havePointer);
-
-          _pointers.forEach(function (pointer) {
-            resetAnimation(pointer, _animationClass);
+        if (config.pointer && config.animation) {
+          config.pointer.forEach(function (pointer) {
+            resetAnimation(pointer, config.animation); // pointer.style.animationDirection = 'reverse';
           });
         } else {
-          resetAnimation(target, _animationClass);
-        }
+          resetAnimation(target, config.animation);
+        } //Dispatch event on quit
+
+
+        var _event = new CustomEvent('lazy-quit', config);
+
+        target.dispatchEvent(_event);
+        if (config.pointer) config.pointer.forEach(function (e) {
+          return e.dispatchEvent(_event);
+        });
       }
     });
   } //Get available
@@ -466,7 +570,10 @@ function lazyMain() {
   if (window.IntersectionObserver && window.lazy() && window.lazyDatas) {
     //Set observer on dom elements
     var getLazyObject = function getLazyObject() {
-      document.body.querySelectorAll(window.lazy().parameters.join(',')).forEach(function (el) {
+      var tags = Object.values(window.lazy().parameters).map(function (e) {
+        return "[".concat(e, "]");
+      });
+      document.body.querySelectorAll(tags.join(',')).forEach(function (el) {
         //Get default width and height
         var sizeWidth = el.getAttribute('lazy-size-width');
         var sizeHeight = el.getAttribute('lazy-size-height'); //Set default width and height (removed after load)
@@ -476,12 +583,16 @@ function lazyMain() {
 
         observer.observe(el);
       });
-    };
+    }; //Recording change from the dom
+
 
     //Observer
     var observer = new IntersectionObserver(callback, window.lazy().options);
     window.lazyDatas["observer"] = observer;
-    document.addEventListener("DOMNodeInserted", getLazyObject); //document.addEventListener("change", getLazyObject);
+    document.addEventListener("DOMNodeInsertedIntoDocument", getLazyObject);
+    document.addEventListener("DOMNodeRemovedFromDocument", function (event) {
+      observer.unobserve(event.target);
+    }); //document.addEventListener("change", getLazyObject);
 
     getLazyObject(); //Info
 
@@ -492,20 +603,80 @@ function lazyMain() {
   }
 }
 
-if (window.NodeList && !NodeList.prototype.forEach) {
-  NodeList.prototype.forEach = Array.prototype.forEach;
+/**
+ * CustomEvent() polyfill
+ * https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
+ */
+function CustomEventSetup() {
+  if (typeof window.CustomEvent === 'function') return false;
+
+  function CustomEvent(event, params) {
+    params = params || {
+      bubbles: false,
+      cancelable: false,
+      detail: undefined
+    };
+    var evt = document.createEvent('CustomEvent');
+    evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+    return evt;
+  }
+
+  CustomEvent.prototype = window.Event.prototype;
+  window.CustomEvent = CustomEvent;
 }
 
-if (window.HTMLCollection && !HTMLCollection.prototype.forEach) {
-  HTMLCollection.prototype.forEach = Array.prototype.forEach;
-} //Datas
+/**
+ * ForEach polyfill
+ */
+function setUpForEach() {
+  if (window.NodeList && !NodeList.prototype.forEach) {
+    NodeList.prototype.forEach = Array.prototype.forEach;
+  }
 
+  if (window.HTMLCollection && !HTMLCollection.prototype.forEach) {
+    HTMLCollection.prototype.forEach = Array.prototype.forEach;
+  }
+}
+
+/**
+ * Object.values polyfill
+ */
+function setObjectValues() {
+  if (!Object.values) {
+    Object.values = function (obj) {
+      return Object.keys(obj).map(function (e) {
+        return obj[e];
+      });
+    };
+  }
+}
+
+/**
+ * Object.entries polyfill
+ */
+function setObjectEntries() {
+  if (!Object.entries) {
+    Object.entries = function (obj) {
+      return Object.keys(obj).map(function (key) {
+        return [key, obj[key]];
+      });
+    };
+  }
+}
+
+CustomEventSetup(); //Foreach creation for IE
+
+setUpForEach(); //Object.values polyfill for IE
+
+setObjectValues(); //Object.entries polyfill for IE
+
+setObjectEntries(); //Datas
 
 window.lazyDatas = {
   isIE: !!document.documentMode,
   originalObserver: true
 }; //Locked methods
-//Global methods of lazy
+//Global methods of lazy attr
 
 window.lazy = lazyGlobal; //Create IntersectionObserver for old version of navigator
 
@@ -515,4 +686,4 @@ if (!window.IntersectionObserver) {
 } //DOM loaded
 
 
-window.addEventListener('load', lazyMain);
+document.addEventListener('DOMContentLoaded', lazyMain);

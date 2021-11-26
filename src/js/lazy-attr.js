@@ -1,17 +1,24 @@
 import styles from "../css/lazy-attr-animation.css"
 
-import IntersectionObserverPolyfill from "./IntersectionOberver.polyfill"
-import lazyGlobal from "./lazy-attr.global"
-import lazyMain from "./lazy-attr.main"
+import IntersectionObserverPolyfill from "./polyfill/IntersectionOberver.polyfill"
+import lazyGlobal from "./datas/lazy-attr.global"
+import lazyMain from "./main/lazy-attr.main"
+import CustomEventSetup from "./polyfill/CustomEvent.polyfill"
+import setUpForEach from "./polyfill/ForEach.polyfill"
+import setObjectValues from "./polyfill/ObejectValues.polyfill"
+import setObjectEntries from "./polyfill/ObjectEntries.polyfill"
+
+//CustomEvent polyfill for IE
+CustomEventSetup();
 
 //Foreach creation for IE
-if(window.NodeList && !NodeList.prototype.forEach) {
-    NodeList.prototype.forEach = Array.prototype.forEach;
-}
+setUpForEach();
 
-if(window.HTMLCollection && !HTMLCollection.prototype.forEach) {
-    HTMLCollection.prototype.forEach = Array.prototype.forEach;
-}
+//Object.values polyfill for IE
+setObjectValues();
+
+//Object.entries polyfill for IE
+setObjectEntries();
 
 //Datas
 window.lazyDatas = {
@@ -20,7 +27,7 @@ window.lazyDatas = {
 };
 
 //Locked methods
-//Global methods of lazy
+//Global methods of lazy attr
 window.lazy = lazyGlobal;
 
 //Create IntersectionObserver for old version of navigator
@@ -30,4 +37,4 @@ if(!window.IntersectionObserver){
 }
 
 //DOM loaded
-window.addEventListener('load', lazyMain);
+document.addEventListener('DOMContentLoaded', lazyMain);

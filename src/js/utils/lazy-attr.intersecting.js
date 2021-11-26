@@ -2,7 +2,7 @@
 * See object intersecting for polyfill
 * @param {HTMLElement} element 
 */
-  function isIntersecting(element){
+function isIntersectingObserver(element){
     const width = window.innerWidth;
     const height = window.innerHeight;
 
@@ -42,10 +42,10 @@ function isIntersectingWithoutTransform(el){
         let hIntersect = false;
         let vIntersect = false;
 
-        let topCondition = top >= 0 && top <= height;
-        let bottomCondition = bottom >= 0 && bottom <= height;
-        let leftCondition = left >= 0 && left <= width;
-        let rightCondition = right >= 0 && right <= width;
+        const topCondition = top >= 0 && top <= height;
+        const bottomCondition = bottom >= 0 && bottom <= height;
+        const leftCondition = left >= 0 && left <= width;
+        const rightCondition = right >= 0 && right <= width;
 
         if(topCondition || bottomCondition) vIntersect = true;
         if(leftCondition || rightCondition) hIntersect = true;
@@ -58,4 +58,4 @@ function isIntersectingWithoutTransform(el){
     return isElementIntersecting(el) || (pointer != null ? isElementIntersecting(document.querySelector(pointer)) : false);
 }
 
-export default {isIntersecting, isIntersectingWithoutTransform};
+export default {isIntersectingObserver, isIntersectingWithoutTransform};
