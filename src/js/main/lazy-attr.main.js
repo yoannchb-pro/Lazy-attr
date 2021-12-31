@@ -209,9 +209,35 @@ export default function lazyMain(){
         }
 
         //Recording change from the dom
-        document.addEventListener("DOMNodeInsertedIntoDocument", getLazyObject);
-        document.addEventListener("DOMNodeRemovedFromDocument", function(event){
-            observer.unobserve(event.target);
+        function getMutationObserver() {
+            return (
+              window.MutationObserver ||
+              window.WebKitMutationObserver ||
+              window.MozMutationObserver
+            );
+        }
+
+        const MutationObserver = getMutationObserver();
+
+        const observerDOM = new MutationObserver(function(mutations){
+            if (!mutations) return;
+
+            mutations.forEach((mutation) => {
+                const addedNodes = Array.prototype.slice.call(mutation.addedNodes);
+                const removedNodes = Array.prototype.slice.call(mutation.removedNodes);
+
+                if(addedNodes && addedNodes.length > 0) getLazyObject();
+                
+                removedNodes.forEach(node => {
+                    try { observer.unobserve(node) } catch(e) {}
+                });
+            })
+        });
+
+        observerDOM.observe(window.document.documentElement, {
+            childList: true,
+            subtree: true,
+            removedNodes: true
         });
 
         //document.addEventListener("change", getLazyObject);

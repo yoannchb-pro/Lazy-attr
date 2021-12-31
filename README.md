@@ -18,10 +18,7 @@ Create lazy loading request or element like image, iframe, video... Make custom 
 ## 🎉 Update
 ---
 
-- Bugs corrections
-- Improvement
-- No more lazy-callback (now it will dispatch an event named `lazy-loaded` and `lazy-quit`)
-- Added lazy-observe (Do not do anything just observe the element to do lazy request for example)
+- Working in vuejs and other
 
 ## 📚 Documentation & Demo
 ---
@@ -31,9 +28,14 @@ Create lazy loading request or element like image, iframe, video... Make custom 
 ## 💻 Import
 ---
 
-- You just need to import the css file and the js file
-- In browser put it in the \<head>
-- In vue.js you can put it in the public.html file
+### Node
+```js
+import lazyattr from "lazy-attr";
+import "lazy-attr/dist/lazy-attr-animation.css";
+
+//Vue.use(lazyattr)
+```
+
 ### CDN
 ```html
 <script src="https://unpkg.com/lazy-attr@1.2.1/dist/lazy-attr.js" type="text/javascript"></script>

@@ -214,7 +214,7 @@ function lazyGlobal() {
     //skeletons animations
     skeletons: ["lazy-skeleton", "lazy-skeleton-corner", "lazy-skeleton-top"],
     //version
-    version: "1.2.1"
+    version: "1.2.2"
   };
 }
 
@@ -586,12 +586,31 @@ function lazyMain() {
     }; //Recording change from the dom
 
 
+    var getMutationObserver = function getMutationObserver() {
+      return window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+    };
+
     //Observer
     var observer = new IntersectionObserver(callback, window.lazy().options);
     window.lazyDatas["observer"] = observer;
-    document.addEventListener("DOMNodeInsertedIntoDocument", getLazyObject);
-    document.addEventListener("DOMNodeRemovedFromDocument", function (event) {
-      observer.unobserve(event.target);
+    var MutationObserver = getMutationObserver();
+    var observerDOM = new MutationObserver(function (mutations) {
+      if (!mutations) return;
+      mutations.forEach(function (mutation) {
+        var addedNodes = Array.prototype.slice.call(mutation.addedNodes);
+        var removedNodes = Array.prototype.slice.call(mutation.removedNodes);
+        if (addedNodes && addedNodes.length > 0) getLazyObject();
+        removedNodes.forEach(function (node) {
+          try {
+            observer.unobserve(node);
+          } catch (e) {}
+        });
+      });
+    });
+    observerDOM.observe(window.document.documentElement, {
+      childList: true,
+      subtree: true,
+      removedNodes: true
     }); //document.addEventListener("change", getLazyObject);
 
     getLazyObject(); //Info

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.2
+- Working in vuejs and other
+
 ## 1.2.1
 - Bugs corrections
 - Improvement
