@@ -1,6 +1,6 @@
 {
   "name": "lazy-attr",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Create lazy loading request or element like image, iframe, video... Make custom animation on lazy and not lazy element on all browser. You can also use our animations included in the lib. All of that just with html attributes.",
   "main": "dist/lazy-attr.cjs.js",
   "module": "dist/lazy-attr.esm.js",

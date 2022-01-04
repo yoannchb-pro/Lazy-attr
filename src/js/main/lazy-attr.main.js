@@ -63,6 +63,10 @@ export default function lazyMain(){
                 * Start animation function after load element if it is lazy or not
                 */
                 const startAnimation = function(){
+                    //minimum size
+                    target.style.minWidth = null;
+                    target.style.minHeight = null;
+
                     if(config.pointer) config.pointer.forEach(function(el){
                         setClassLazy(el);
                         animationState(el, "running");

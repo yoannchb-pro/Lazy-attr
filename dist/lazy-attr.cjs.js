@@ -121,20 +121,24 @@ function isIntersectingWithoutTransform(el) {
   var height = window.innerHeight;
 
   function isElementIntersecting(element) {
-    var parentRect = element.offsetParent.getBoundingClientRect();
-    var left = parentRect.left + element.offsetLeft;
-    var top = parentRect.top + element.offsetTop;
-    var bottom = top + element.offsetHeight;
-    var right = left + element.offsetWidth;
-    var hIntersect = false;
-    var vIntersect = false;
-    var topCondition = top >= 0 && top <= height;
-    var bottomCondition = bottom >= 0 && bottom <= height;
-    var leftCondition = left >= 0 && left <= width;
-    var rightCondition = right >= 0 && right <= width;
-    if (topCondition || bottomCondition) vIntersect = true;
-    if (leftCondition || rightCondition) hIntersect = true;
-    if (hIntersect && vIntersect) return true;
+    try {
+      var parentRect = element.offsetParent.getBoundingClientRect();
+      var left = parentRect.left + element.offsetLeft;
+      var top = parentRect.top + element.offsetTop;
+      var bottom = top + element.offsetHeight;
+      var right = left + element.offsetWidth;
+      var hIntersect = false;
+      var vIntersect = false;
+      var topCondition = top >= 0 && top <= height;
+      var bottomCondition = bottom >= 0 && bottom <= height;
+      var leftCondition = left >= 0 && left <= width;
+      var rightCondition = right >= 0 && right <= width;
+      if (topCondition || bottomCondition) vIntersect = true;
+      if (leftCondition || rightCondition) hIntersect = true;
+      if (hIntersect && vIntersect) return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   var pointer = el.getAttribute('lazy-animation-pointer');
@@ -214,7 +218,7 @@ function lazyGlobal() {
     //skeletons animations
     skeletons: ["lazy-skeleton", "lazy-skeleton-corner", "lazy-skeleton-top"],
     //version
-    version: "1.2.2"
+    version: "1.2.3"
   };
 }
 
@@ -447,6 +451,9 @@ function lazyMain() {
 
 
         var startAnimation = function startAnimation() {
+          //minimum size
+          target.style.minWidth = null;
+          target.style.minHeight = null;
           if (config.pointer) config.pointer.forEach(function (el) {
             setClassLazy(el);
             animationState(el, "running"); //remove skeleton animation

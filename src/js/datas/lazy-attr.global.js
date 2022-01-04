@@ -34,6 +34,6 @@ export default function lazyGlobal(){
         skeletons: ["lazy-skeleton", "lazy-skeleton-corner", "lazy-skeleton-top"],
 
         //version
-        version: "1.2.2",
+        version: "1.2.3",
     }
 }

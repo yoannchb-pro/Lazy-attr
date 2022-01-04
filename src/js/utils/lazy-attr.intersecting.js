@@ -33,24 +33,28 @@ function isIntersectingWithoutTransform(el){
     const height = window.innerHeight;
 
     function isElementIntersecting(element){
-        const parentRect = element.offsetParent.getBoundingClientRect();
-        const left = parentRect.left + element.offsetLeft;
-        const top = parentRect.top + element.offsetTop;
-        const bottom = top + element.offsetHeight;
-        const right = left + element.offsetWidth;
-
-        let hIntersect = false;
-        let vIntersect = false;
-
-        const topCondition = top >= 0 && top <= height;
-        const bottomCondition = bottom >= 0 && bottom <= height;
-        const leftCondition = left >= 0 && left <= width;
-        const rightCondition = right >= 0 && right <= width;
-
-        if(topCondition || bottomCondition) vIntersect = true;
-        if(leftCondition || rightCondition) hIntersect = true;
-
-        if(hIntersect && vIntersect) return true;
+        try {
+            const parentRect = element.offsetParent.getBoundingClientRect();
+            const left = parentRect.left + element.offsetLeft;
+            const top = parentRect.top + element.offsetTop;
+            const bottom = top + element.offsetHeight;
+            const right = left + element.offsetWidth;
+    
+            let hIntersect = false;
+            let vIntersect = false;
+    
+            const topCondition = top >= 0 && top <= height;
+            const bottomCondition = bottom >= 0 && bottom <= height;
+            const leftCondition = left >= 0 && left <= width;
+            const rightCondition = right >= 0 && right <= width;
+    
+            if(topCondition || bottomCondition) vIntersect = true;
+            if(leftCondition || rightCondition) hIntersect = true;
+    
+            if(hIntersect && vIntersect) return true;
+        } catch(e) {
+            return false;
+        }
     }
 
     const pointer = el.getAttribute('lazy-animation-pointer');

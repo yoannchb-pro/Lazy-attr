@@ -1,4 +1,4 @@
-# 📖 Lazy-attr v1.2.1
+# 📖 Lazy-attr v1.2.3
 
 [![npm](https://img.shields.io/badge/npm-download-green)](https://www.npmjs.com/package/lazy-attr) [![Download](https://img.shields.io/badge/github-download-gree)](https://github.com/yoannchb-pro/Lazy-attr)
 
@@ -18,7 +18,7 @@ Create lazy loading request or element like image, iframe, video... Make custom 
 ## 🎉 Update
 ---
 
-- Working in vuejs and other
+- See [CHANGELOG](./CHANGELOG.md)
 
 ## 📚 Documentation & Demo
 ---
@@ -38,8 +38,8 @@ import "lazy-attr/dist/lazy-attr-animation.css";
 
 ### CDN
 ```html
-<script src="https://unpkg.com/lazy-attr@1.2.1/dist/lazy-attr.js" type="text/javascript"></script>
-<link href="https://unpkg.com/lazy-attr@1.2.1/dist/lazy-attr-animation.css" rel="stylesheet"/>
+<script src="https://unpkg.com/lazy-attr@1.2.3/dist/lazy-attr.js" type="text/javascript"></script>
+<link href="https://unpkg.com/lazy-attr@1.2.3/dist/lazy-attr-animation.css" rel="stylesheet"/>
 ```
 
 ### From download

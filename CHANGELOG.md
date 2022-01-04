@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.3
+- No more getBoundClientRect error
+- Correction for ```lazy-size-width``` and ```lazy-size-height```
+
 ## 1.2.2
 - Working in vuejs and other
 
